@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iremosenbici</title>
+    <meta name="description" content="Experimenta la libertad iremosenbici.com">
+    <meta name="keywords" content="cicloturismo, ciclismo, bicicleta, bike, turistas, mochileros, libertad">
+    
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,300|Raleway:300,400,900,700italic,700,300,600">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Favicon e iconos touch -->
+        <link rel="shortcut icon" href="ico/favicon-iremosenbici.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="52x52" href="ico/apple-touch-icon-52-precomposed.png">
+  </head>
+    <body>
+      <div class="menuPrincipal"></div>
+      <div class="menuSomos"></div>
+      <div class="menuHacemos"></div>
+      <div class="menuRutas"></div>
+      <div class="menuGaleria"></div>
+      <div class="menuPatrocinantes"></div>
+      <div class="menuDonaciones"></div>
+      <div class="menuContactenos"></div>
+      <div class="menuFooter"></div>
+      
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+      <script type="text/javascript" src="js/jquery.easing.min.js"></script>      
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="js/wow.js"></script>
+      <script type="text/javascript" src="js/jquery.bxslider.min.js"></script>
+      <script type="text/javascript" src="js/custom.js"></script>
+    
+    <div id="contenedor-carga">
+    	<div id="contenedor-logo-carga">
+                <img src="img-logo/rueda-t.png" class="img-rueda-t" class="img-responsive">
+                <img src="img-logo/rueda-d.png" class="img-rueda-d" class="img-responsive">
+                <img src="img-logo/marco-logo.png" class="img-marco" class="img-responsive">
+                <img src="img-logo/fondo-pedal-atras.png" class="img-fondo-pedal" class="img-responsive">
+                <img src="img-logo/pedal-atras.png" class="img-pedal-at" class="img-responsive">
+                <img src="img-logo/pedal-frente.png" class="img-pedal-fr" class="img-responsive">
+         </div>
+    </div>
+    <script type="text/javascript">
+		$(window).load(function() {
+		$('#contenedor-carga').fadeOut('slow');
+		$('body').css({'overflow':'visible'});
+		})
+	</script>
+    </body>
+    
+  	<script>
+    $(document).ready(function () {
+      $('.menuPrincipal').load('./menu.html');
+	  $('.menuSomos').load('./somos.html');
+	  $('.menuHacemos').load('./hacemos.html');
+	  $('.menuRutas').load('./rutas.html');
+	  $('.menuGaleria').load('./galeria.html');
+	  $('.menuPatrocinantes').load('./patrocinantes.html');
+	  $('.menuDonaciones').load('./donaciones.html');
+	  $('.menuContactenos').load('./contactenos.html');
+	  $('.menuFooter').load('./footer.html');
+   	 });
+    </script>
+</html>
