@@ -1,0 +1,1755 @@
+/*
+    Autor: Jean Soire (iremosenbici)
+    C-Autor - URL: https://bootstrapmade.com
+*/
+
+
+#logo-recorrido{
+
+	position: relative;
+	z-index: 1;
+	left: -5%; 
+	/***ACTUALMENTE EN:***/
+	/*left: -5%; Venezuela*/
+	/*left: 20%; Colombia*/
+	/*left: 45%; Panama*/
+	/*left: 70%; Costa Rica*/
+}
+
+body {
+	line-height: 1.4;
+	font-family: 'Roboto', sans-serif;
+    color: #67696c;
+	font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+	
+}
+
+/**********Contenedor que mantiene elemento************/
+.contener-elemento{
+	position: relative;
+	max-width: 95%;
+}
+
+/**********Contenedor que mantiene foter************/
+.contener-footer{
+	/*position: relative;*/
+	max-width: 100% !important;
+	width: 100% !important;
+}
+
+/**********Contenedor que mantiene mapas************/
+.contener-mapa{
+	position: relative;
+	max-width: 95%;
+	margin:auto;
+	padding: 1% 2% 2% 2%;
+}
+/***********Estilos para ventana de carga**************/
+#contenedor-carga{
+	background-color: rgba(0,0,0,0.4);
+	/*opacity: 1;*/
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	-webkit-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+	margin: auto;
+	z-index: 100;
+}
+/******LOGO Animado para carga web*******/
+#contenedor-logo-carga{
+	position: relative;
+	left: 35%;
+	top: 20%;
+	padding: 0%;
+	width: 35%;
+}
+
+/***********No oculta scroll con modal**************/
+.modal-open { 
+    overflow:hidden; 
+    overflow-y:scroll; 
+    padding-right:0 !important; 
+} 
+
+/******ampliar modal******/
+.modal-body{
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+/****** FIN ampliar modal******/
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+
+.section-padding
+{
+    padding: 60px 0px;
+}
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+/***********************************
+************************************
+HEADER 
+************************************
+***********************************/
+.header{
+    background: url('../img/cicloturismo-portada-1080.jpg') no-repeat fixed; /*imagen fija de cabecera1*/
+    background-size: cover;
+    min-height: 650px;
+    position: relative;
+}
+
+.fondoruta-ven-cos{
+    background: url('../img/fondo-ruta-ven-cos.jpg') no-repeat fixed; /*imagen fija - fondo RUTAS*/
+    background-size: cover;
+    min-height: 650px;
+    position: relative;
+}
+
+.fondoruta-recomienda{
+    background: url('../img/collage-lugares.jpg') no-repeat fixed; /*imagen fija - fondo RUTAS*/
+    background-size: cover;
+    min-height: 650px;
+    position: relative;
+}
+/*Fondo transparente para mapa Ruta*/
+.bg-mapa-ruta{
+    background-color: rgba(0, 0, 0, 0.3);
+    min-height: 650px;
+}
+
+.fondopatrocinantes{
+    background: url('../img/fondo-patrocinantes-tablas3.jpg') no-repeat fixed; /*imagen fija - fondo PATROCINANTES*/
+    background-size: cover;
+    min-height: 650px;
+    position: relative;
+}
+
+.fondorecomienda{
+    background: url('../img/cicloturismo-fondo-iremosenbici.jpg') no-repeat fixed; /*imagen fija - fondo CONTECTENOS*/
+    background-size: cover;
+    min-height: 650px;
+    position: relative;
+}
+
+/*Fondo transparente para fondo Recomiendanos un lugar*/
+.bg-recomienda{
+	background-color: rgba(0,0,0,0.4);
+	min-height: 650px;
+}
+
+.fondoiremosdiagonal{
+	background: url('../img/iremosenbici-fondo-logo-diagonal.jpg')fixed; /*fondo fijo iremosenbici Diagonal*/
+}
+
+/*Fondo transparente para portada*/
+.bg-color
+{
+    background-color: rgba(0, 0, 0, 0.5);
+    min-height: 650px;
+}
+#main-header
+{
+}
+.navbar-default {
+    background-color: transparent;
+    border:0px;
+    padding: 20px 0; 
+    transition: all 0.3s;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover
+{
+	color: #99FF33;	/*color: #002F2F;*/
+}
+
+.top-nav-collapse {
+    padding: 0; 
+    background: rgba(50,50,50, 0.6);
+}
+/*Color para letras IREMOS*/
+.logo-dec
+{
+	color: #FFFF00;
+}
+
+/*estilo para ENBICI*/
+.navbar-default .navbar-brand {
+	color: #FFF;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 700;
+	font-style: oblique;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus
+{
+    color: #fff;
+}
+
+.navbar-brand {
+    padding: 0px;
+    font-size: 24px;
+    text-transform: uppercase;
+    padding: 15px 0px;
+    margin-top: 6px;
+}
+/*para logo*/
+.navbar-brand-logo {
+	padding: 0px;
+	font-size: 24px;
+	text-transform: uppercase;
+	padding: 15px 0px;
+	margin-top: 6px;
+	alignment-adjust: middle;
+}
+
+/***********************************
+************************************
+efectos logo
+************************************
+***********************************/
+.blog-imglogo
+{
+	position: relative;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+/********Tamaño de logo principal menu IREMOSENBICI********/
+.blog-imglogo img {
+    width: 50%;
+    opacity: 0.80;
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+/********Efectos logo principal menu IREMOSENBICI********/
+.blog-imglogo img:hover {
+	opacity: 1;
+	-webkit-transform: scale(1.05);
+	-moz-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	-o-transform: scale(1.05);
+	transform: scale(1.05);
+	alignment-adjust: central;
+}
+
+/***********************************
+************************************
+efectos imagen pasos
+************************************
+***********************************/
+.img-pasos
+{
+	position: relative;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.img-pasos img:hover {
+	opacity: 1;
+	-webkit-transform: scale(1.05);
+	-moz-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	-o-transform: scale(1.05);
+	transform: scale(1.05);
+	alignment-adjust: central;
+}
+.img-pasos img {
+    width: 100%;
+    opacity: 1;
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+
+.navbar-default .navbar-nav > li > a
+{
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 54px;
+    font-weight: 400;
+    text-transform: uppercase;
+    background: transparent;
+    color: #fff;
+    -webkit-transition: color 0.2s ease-out;
+    transition: color 0.2s ease-out;
+}
+/*Estilos para menus seleccionados*/
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+	color: #FFFF00;
+	background-color: transparent;
+}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+	background-color: transparent;
+	color: #FFFF00;
+}
+.banner-info
+{
+    padding-top: 140px;
+    color: #fff;
+}
+.bnr-title, .bnr-sub-title
+{
+    font-family: 'Fira Sans', sans-serif;
+}
+h1.bnr-title
+{
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+h2.bnr-sub-title /*Atributos para titulo principal*/
+{
+	font-size: 45px;
+	text-transform: uppercase;
+	padding: 20px 0px;
+	font-weight: 700;
+	text-shadow: 1px 1px 1px #FF0;
+	
+}
+.bnr-para
+{
+    font-weight: 300;
+}
+.btn-download, .btn-more, .btn-download:hover, .btn-download:focus, .btn-more:focus
+{
+    text-transform: uppercase;
+    margin-top: 50px;
+    color: #fff;
+    border: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 24px;
+    padding: 10px 30px;
+    border-radius: 60px;
+    margin: 50px 10px 0 0;
+    outline: none !important;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: all 0.3s;
+}
+
+
+.btn-download
+{
+    background-color: #be9e21;
+}
+.btn-more, .btn-more:focus
+{
+    margin-left: 15px;
+    border: 1px solid #be9e21;
+    color: #be9e21;
+}
+
+.btn-more:hover {
+    background: #be9e21;
+    color: #fff;
+}
+
+.overlay-detail a i{
+   text-align: center;
+   position: absolute;
+   bottom: 25px;
+   font-size: 38px;
+   color: #fff;
+}
+
+/***********************************
+************************************
+QUIENES SOMOS
+************************************
+***********************************/
+#quienes
+{
+	background: url('../img/bg-autopista.jpg') no-repeat;
+	background-size: cover;
+	position: relative;
+	min-height: 450px; /*Altura de imagen de fondo*/
+	background-position: center;
+}
+.bg-testicolor{
+	background-color: RGBA(73, 84, 105, 0.30);
+	min-height: 410px;/*Altura de sombra de imagen de fondo*/
+}
+.white
+{
+    color: #fff !important;
+}
+.quienes-item ul li blockquote {
+	font-size: 18px;
+	line-height: 32px;
+	color: #fff;
+	font-weight: 300;
+	text-shadow: 1px 1px 2px #333;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	margin: 15px 0;
+	padding: 3px 80px;
+	position: static;
+	border: 0;
+}
+/***********************************
+Nombre quienes somos
+***********************************/
+.quienes-item ul li  small {
+    font-size: 16px;
+    color: #ffff00;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px #333;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+.bx-viewport
+{
+    height: 300px !important; /*Cambia posicion en la altura de los puntos del slider*/
+    background-color: transparent !important;
+    border: 0px none !important;
+    box-shadow: none !important;
+}
+.quienes-item ul li blockquote::before {
+    content: '“';
+    left: 30px;
+}
+.quienes-item ul li blockquote::before, .quienes-item ul li blockquote::after {
+    position: absolute;
+    font-weight: 300;
+    font-size: 3em;
+    font-family: Georgia, serif;
+    color: #ccc;
+    top: 62%;
+}
+.quienes-item ul li blockquote::after {
+    content: '”';
+    right: 40px;
+}
+
+/***********************************
+************************************
+efectos imagen QUIENES SOMOS
+************************************
+***********************************/
+.img-somos
+{
+	position: relative;
+	padding-top:inherit;
+	margin-bottom: 1px;
+	overflow: hidden;
+}
+.img-somos img:hover {
+	opacity: 1;
+	-webkit-transform: scale(1.05);
+	-moz-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	-o-transform: scale(1.05);
+	transform: scale(1.05);
+	alignment-adjust: central;
+}
+.img-somos img {
+    width: 30%;
+    opacity: 1;
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+/***********************************
+************************************
+RUTAS
+************************************
+***********************************/
+.fondorutas{
+    background: url('../img/ruta-ven-costa-recorrido.jpg') no-repeat fixed; /*imagen fija - fondo RUTAS*/
+    background-size: cover;
+    min-height: 650px;
+    position: relative;
+}
+
+/************* Efectos Textos Rutas **************/
+.title, .title-rutas /*Atributos para titulo de seccion Ruta principal*/
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 35px;
+	text-transform: uppercase;
+	text-shadow: 2px 2px 3px #000;
+	background: linear-gradient(black,white);
+	-webkit-background-clip: text;
+	color: #FFF;
+}
+
+/**************GALERIA*****************/
+
+.contenedor-galeria{
+	margin:auto;
+	position:relative;
+	padding:0px;
+}
+
+
+
+/***********************************
+************************************
+features
+************************************
+***********************************/
+.title, .servicios-title /*Atributos para titulos de secciones*/
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 35px;
+	text-transform: uppercase;
+	text-shadow: -1px -1px 1px #333;
+	background: linear-gradient(yellow,white);
+	-webkit-background-clip: text;
+	color: transparent;
+}
+.title, .servicios-title-rutas /*Atributos para titulos de secciones en las Rutas*/
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 25px;
+	text-transform: uppercase;
+	text-shadow: -1px -1px 1px #333;
+	background: linear-gradient(yellow,white);
+	-webkit-background-clip: text;
+	color: transparent;
+}
+
+.titulo-rutas-recomienda /*Atributos para titulos de seccioRecomiendanos*/
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 25px;
+	text-transform: uppercase;
+	text-shadow: 2px 2px 2px #FF0;
+	background: linear-gradient(yellow,white);
+	-webkit-background-clip: text;
+	color: #FFF;
+}
+
+.item-img
+{
+    margin-bottom: 15px;
+}
+.sub-title
+{
+    font-size: 20px;
+}
+/*Linea separadora de secciones*/
+.bottom-line
+{
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border: 0;
+	border-top: 0px;
+	height: 3px;
+	width: 50px;
+	background-color: #FFFF00;
+	border-color: #000;
+}
+.wrap-item h3 {
+    font-size: 24px;
+    line-height: 25px;
+}
+.pad-bt15 {
+    padding-bottom: 5px;
+}
+.sec-sub-title
+{
+    padding-top: 30px;
+}
+.sec-sub-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #002F2F;
+    text-transform: uppercase;
+    margin: 25px 0px;
+    line-height: 1.7;
+}
+
+
+
+/***********************************
+************************************
+Servicios
+************************************
+***********************************/
+
+#servicios
+{
+	background-attachment: fixed;
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+}
+ul.servicios-list li i
+{
+    color: #002F2F;
+    padding-right: 10px;
+}
+.learn-more, .learn-more:hover, .learn-more:focus {
+    height: 50px;
+    width: 175px;
+    background: #046380;
+    display: inline-block;
+    text-align: center;
+    color: #ffffff;
+    line-height: 50px;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-decoration: none;
+    margin-right: 10px;
+    margin-top: 45px;
+    text-decoration: none;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+}
+.visit-galeria, .visit-galeria:hover, .visit-galeria:focus {
+    height: 50px;
+    width: 175px;
+    display: inline-block;
+    text-align: center;
+    color: #495376;
+    line-height: 50px;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-decoration: none;
+    border: 1px solid #838aa1;
+    margin-top: 45px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+}
+
+/*-----------imagen de perfiles QUIENES SOMOS--------------*/
+.bx-wrapper img {
+	width: 120px; /*Cambia el tamaño de imagen de perfiles*/
+	display: inline-block;
+	border-radius: 50%;
+	border: 5px solid #fff;
+	margin-bottom: 35px;
+}
+.servicios-item h3 span /*Atributos para letras en titulos*/
+{
+	opacity: 1;
+	font-size: 75px;
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: -5px;
+	font-weight: 900;
+	padding-right: 6px;
+	text-shadow: 2px 2px 3px #000;
+	color: #CCC;
+}
+/**************RUTAS**********************/
+
+.bg-color-rutas
+{
+    background-color: rgba(0, 0, 0, 0.3); /*Fondo transparente para seccion*/
+    min-height: 650px;
+}
+
+
+.rutas-item h3 span /*Atributos para letras en titulos*/
+{
+	opacity: 1;
+	font-size: 75px;
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: -5px;
+	font-weight: 900;
+	padding-right: 6px;
+	text-shadow: -2px -2px 2px #FF0,2px 2px 2px #FF0,-2px 2px 2px #FFF,2px -2px 2px #FFF;
+  	color: grey;
+	z-index: auto;
+}
+
+.rutas-item h3 /*Atributos para Inicial en seccion RUTAS*/
+{
+	font-weight: 600;
+	color: #000;
+	text-shadow: -2px -2px 2px #FF0,2px 2px 2px #FF0,-2px 2px 2px #FFF,2px -2px 2px #FFF;
+	z-index: 2;
+}
+.rutas-item p /*Atributos para parrafos seccion RUTAS*/
+{
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: -4px -4px 4px #000, 4px 4px 4px #000, -4px 4px 4px #000, 4px -4px 4px #000;
+	z-index:2;
+	
+}
+
+.rutas-item p > img /*Atributos  de IMAGENES para parrafos seccion RUTAS*/
+{
+	position: absolute;
+	height: 120px;
+	width: 100px;
+	top: 0px;
+	left: 55%;
+	background: transparent;
+	z-index: -2;
+	opacity: 0.9;
+	padding: 10px 0px;
+}
+
+.rutas-item a /*Atributos para links de RUTAS*/
+{
+	color: #FFFF00;
+	text-shadow: -2px -2px 2px #000, 2px 2px 2px #000, -2px 2px 2px #000, 2px -2px 2px #000;
+	
+}
+
+.servicios-item h3 /*Atributos para Inicial en titulos*/
+{
+	font-weight: 600;
+	color: #FFF;
+	text-shadow: 2px 2px 3px #333;
+	z-index:2;
+}
+.servicios-item p /*Atributos para parrafos*/
+{
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: 2px 2px 3px #000;
+}
+
+.texto-fondo-oscuro p /*Atributos para parrafos*/
+{
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: 2px 2px 3px #000;
+}
+
+.servicios-item a /*Atributos para links*/
+{
+	color: #FFFF00;
+}
+.mr-btn-15
+{
+    margin-bottom: 15px;
+}
+.padding-right-zero
+{
+    padding-right: 0px !important;
+}
+.bx-wrapper {
+    margin: 0 auto 35px;
+}
+
+
+/************* Efectos IMAGEN FLIP patrocinantes **************/
+.patro_flip {
+	display: table;
+	background: transparent;
+	text-align: center;
+	padding: 3px;
+	margin: auto auto;
+}
+.patro_flip .flip {
+	margin: 20px;
+	height: 230px; /*230px*/
+	width: 330px; /*330px*/
+	box-shadow: 0px 0px 15px black,inset 0px 1px 0px rgba(255, 255, 255, 0.6),inset 0px 2px 0px rgba(255, 255, 255, 0.1);
+	position: relative;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	transition: all 1s ease;
+	-webkit-transform-origin: 100% 50%;
+	-moz-transform-origin: 100% 50%;
+	transform-origin: 100% 50%;
+	-webkit-transform: perspective(600px);
+	-moz-transform: perspective(600px);
+	transform: perspective(600px);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.patro_flip .flip * {
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.patro_flip .flip .flip-g-text,
+.patro_flip .flip > img {
+	position: absolute;
+	height: 230px; /*230px*/
+	width: 330px; /*330px*/
+	top: 0px;
+	left: 0px;
+	background: transparent;
+}
+.patro_flip .flip .flip-g {
+	-webkit-transform-origin: 50% 50%;
+	-moz-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+	-webkit-transform: rotateY(-180deg);
+	-moz-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
+}
+
+.patro_flip:hover .flip {
+	-webkit-transform-origin: 100% 50%;
+	-moz-transform-origin: 100% 50%;
+	transform-origin: 100% 50%;
+	-webkit-transform: perspective(600px) rotateY(-180deg) translateX(100%);
+	-moz-transform: perspective(600px) rotateY(-180deg) translateX(100%);
+	transform: perspective(600px) rotateY(-180deg) translateX(100%);
+}
+/*****************Atributos para textos de tarjetas de patrocinantes *******************/
+
+.patro_flip .flip .flip-g-text-empre {/*NOMBRE DE EMPRESA*/
+	text-align: left;
+	padding: 3% 10% 1% 8%;
+	font-size: 16px;
+	color: #000000;
+	text-shadow: 2px 2px 2px #FFFFFF;
+	font-weight: bold;
+}
+.patro_flip .flip .flip-g-text-acti {/*ACTIVIDAD DE LA EMPRESA*/
+	text-align: center;
+	padding: 2% 10% 1% 8%;
+	font-size: 14px;
+	color: #000000;
+	text-shadow: 2px 2px 1px #999900;
+}
+
+.patro_flip .flip .flip-g-text-direc {/*DIRECCION DE LA EMPRESA*/
+	text-align: left;
+	padding: 1% 10% 5px 8%;
+	font-size: 12px;
+	color: #000000;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+.patro_flip .flip .flip-g-text-web {/*PAGINA WEB DE LA EMPRESA*/
+	text-align: left;
+	padding: 3px 10% 3px 8%;
+	font-size: 12px;
+	color: #000000;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+
+.patro_flip .flip .flip-g-text-insta {/*INSTAGRAM DE LA EMPRESA*/
+	text-align: left;
+	padding: 3px 10% 3px 8%;
+	font-size: 12px;
+	color: #000000;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+
+.patro_flip .flip .flip-g-text-face {/*FACEBOOK DE LA EMPRESA*/
+	text-align: left;
+	padding: 3px 10% 3px 8%;
+	font-size: 12px;
+	color: #000000;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+.patro_flip .flip .flip-g-text-agrad {/*LINK MODAL AGRADECIMIENTOS*/
+	text-align: right;
+	padding: 3px 10% 3px 8%;
+	font-size: 14px;
+	color: #000066;
+	text-shadow: 1px 1px 1px #FFFFFF;
+	font-weight: bold;
+}
+
+
+/***********************************
+************************************
+Donaciones
+************************************
+***********************************/
+.blog-info h2 {
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding-top: 5px;
+}
+.blog-comment {
+    margin-top: 12px;
+    min-height: 30px;
+}
+.blog-info p, .blog-comment p
+{
+    color: #949494;
+}
+.blog-comment p:first-child {
+    float: left;
+}
+.blog-comment p:last-child {
+    float: right;
+    margin-right: 0;
+}
+.blog-comment p i
+{
+    color: #949494;
+}
+.read-more {
+    color: #949494;
+    margin-top: 15px;
+    display: inline-block;
+}
+.blog-img
+{
+	position: relative;
+	margin-bottom: 20px;
+	overflow: hidden;
+
+}
+.blog-img img:hover {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transform: scale(1.05);
+}
+.blog-img img {
+	width: 60%; /*tamaño de las imagenes de donaciones*/
+	opacity: 0.7;
+	-webkit-transition: all 0.5s linear;
+	-moz-transition: all 0.5s linear;
+	-ms-transition: all 0.5s linear;
+	-o-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+	
+}
+
+
+
+/***********************************
+************************************
+contact
+************************************
+***********************************/
+#contact
+{
+	background-color: rgb(102,102,102);
+	
+}
+.btn-submit, .btn-submit:hover, .btn-submit:focus
+{
+	background-color: transparent;
+	border-radius: 60px;
+	color: #FFFF00;
+	font-weight: 400;
+	border: 1px solid #FFFF00;
+	font-size: 14px;
+	padding: 6px 20px;
+}
+.form-control
+{
+	background-color: #FFF;
+	border-radius: 0px;
+	color: #000000 !important;
+	border-color: #FFFF00;
+	opacity: 0.8;
+	max-width:100%;
+}
+.form-control:focus {
+    border-color: #be9e21;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+.contact-form input.form-control{
+    color: #fff;
+}
+
+.validation {
+    color: red;
+    display:none;
+    margin: 0 0 20px;
+    font-weight:400;
+    font-size:13px;
+}
+
+.textbox {/*Atributos Textbox para formulario de contacto*/
+	text-align: left;
+	padding: 5px 2% 2% 2%;
+	max-width:!important
+	
+}
+
+.textarea {/*Atributos TextArea para formulario de contacto*/
+	text-align: left;
+	padding: 5px 2% 2% 2%;
+	min-height: 150px;
+	resize: vertical;
+}
+
+#sendmessage {
+    color: green;
+    border:1px solid green;
+    display:none;
+    text-align:center;
+    padding:15px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+#errormessage {
+    color: red;
+    display:none;
+    border:1px solid red;
+    text-align:center;
+    padding:15px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+#sendmessage.show, #errormessage.show, .show {
+    display:block;
+}
+
+.loction-info p
+{
+    margin-bottom: 25px;
+}
+.loction-info p i
+{
+	color: #FFFF00;
+	text-shadow: -1px -1px 1px #000;
+}
+
+#loction-info-a
+{
+	color: #FFFFFF;
+	text-shadow: -1px -1px 1px #000;
+}
+
+/***********************************
+************************************
+footer
+************************************
+***********************************/
+
+/*#footer-padre{
+    position:relative;
+}*/
+
+.footer-padre{
+	position: relative;
+	top: 0%;
+	padding: 0%;
+}
+
+.footer-hermanos{
+	position: absolute;
+}
+
+#ciclista-1{
+    z-index:1;
+	/*position: relative;*/
+}
+#ciclista-2{
+    z-index:2;
+	/*position: relative; */
+}
+#ciclista-3{
+    z-index:3;
+	/*position: relative; */
+}
+#ciclista-4{
+    z-index:4;
+	/*position: relative; */
+}
+#ciclista-5{
+    z-index:5;
+	/*position: relative; */
+}
+#ciclista-6{
+    z-index:6;
+	/*position: relative; */
+}
+#ciclista-7{
+    z-index:7;
+	/*position: relative; */
+}
+#ciclista-8{
+    z-index:8;
+	/*position: relative; */
+}
+#ciclista-9{
+    z-index:9;
+	/*position: relative; */
+}
+#ciclista-10{
+    z-index:10;
+	/*position: relative; */
+}
+#ciclista-11{
+    z-index:11;
+	/*position: relative; */
+}
+#ciclista-12{
+    z-index:12;
+	/*position: relative; */
+}
+#ciclista-13{
+    z-index:13;
+	/*position: relative; */
+}
+#ciclista-14{
+    z-index:14;
+	/*position: relative; */
+}
+#ciclista-15{
+    z-index:15;
+	/*position: relative; */
+}
+#ciclista-16{
+    z-index:16;
+	/*position: relative; */
+}
+#ciclista-17{
+    z-index:17;
+	/*position: relative; */
+}
+#ciclista-18{
+    z-index:18;
+	/*position: relative; */
+}
+#ciclista-19{
+    z-index:19;
+	/*position: relative; */
+}
+#ciclista-20{
+    z-index:20;
+	/*position: relative; */
+}
+#ciclista-21{
+    z-index:21;
+	/*position: relative; */
+}
+
+
+
+
+h6-footer{
+    font-size: 14px;
+	margin: 10 0 0px;
+	background-color:transparent;
+}
+
+.texto-footer{
+	color: #FFFF33;
+	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000;
+}
+.scrollToTop {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    color: #ffffff;
+    background: #be9e21;
+    font-size: 14px;
+    line-height: 42px;
+    text-align: center;
+    z-index: 100;
+    cursor: pointer;
+    display: none;
+}
+.white-bg
+{
+    background-color: #fff;
+}
+#footer a{
+	color: #FFFF00;
+	font-weight: 400;
+	text-shadow: -1px -1px #000;
+}
+
+
+
+
+
+/***********************************
+************************************
+Responsive media queries
+************************************
+***********************************/
+
+/**************PANTALLAS DE TAMAÑOS EN *************/
+/*@media (min-width: 840px) and (max-width: 1200px) {*/
+@media (min-width: 1000px) and (max-width: 1200px) {
+	
+	
+	/******LOGO Animado para carga web*******/
+	#contenedor-logo-carga{
+	position: relative;
+	left: 35%;
+	top: 20%;
+	padding: 0%;
+	width: 35%;
+	}
+   .navbar-brand {
+	  font-size: 14px; /*tamaño de las letras de IREMOSENBICI*/
+	  text-transform: uppercase;
+	  padding: 6% 5%; /* X% altura margen superior X%*/
+	  margin-top: 0%;
+	}
+	.navbar-default .navbar-nav > li > a
+	{
+	  padding: 16px 5px; /* 16px alturas en barra de navegacion de Menu - 5px Separacion de palabras en menu*/
+	  font-size: 12px; /*tamaño de las letras de Menu*/
+	  line-height: 15px;
+	  font-weight: 400;
+	}
+   .blog-imglogo img {
+	  width: 45%; /*tamaño de imagen logo*/
+	  opacity: 0.80;
+	}
+	
+	.rutas-item p {/*Atributos para parrafos seccion RUTAS*/
+	font-size: 12px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: -4px -4px 4px #000, 4px 4px 4px #000, -4px 4px 4px #000, 4px -4px 4px #000;
+	z-index:2;
+	}
+	.fondorutas{
+	background: url('../img/ruta-ven-costa-recorrido.jpg') no-repeat fixed; /*imagen fija - fondo RUTAS*/
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+	}
+	.texto-fondo-oscuro p {/*Atributos para parrafos de ayudas mapa en ruta*/
+	font-size: 14px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: 2px 2px 3px #000;
+	}
+	
+	.blog-img img {
+	  width: 50%; /*tamaño de las imagenes de donaciones*/
+	  opacity: 0.7;
+	}
+	.img-pasos img {
+	  width: 100%; /*tamaño de las imagenes de pasos*/
+	  opacity: 1;
+	}
+}
+
+/**************PANTALLAS DE TAMAÑOS EN *************/
+/*@media (min-width: 840px) and (max-width: 1200px) {*/
+@media (min-width: 840px) and (max-width: 1000px) {
+	
+	
+	/******LOGO Animado para carga web*******/
+	#contenedor-logo-carga{
+	position: relative;
+	left: 35%;
+	top: 20%;
+	padding: 0%;
+	width: 35%;
+	}
+   .navbar-brand {
+	  font-size: 14px; /*tamaño de las letras de IREMOSENBICI*/
+	  text-transform: uppercase;
+	  padding: 6% 5%; /* X% altura margen superior X%*/
+	  margin-top: 0%;
+	}
+	.navbar-default .navbar-nav > li > a
+	{
+	  padding: 16px 5px; /* 16px alturas en barra de navegacion de Menu - 5px Separacion de palabras en menu*/
+	  font-size: 10px; /*tamaño de las letras de Menu*/
+	  line-height: 15px;
+	  font-weight: 400;
+	}
+   .blog-imglogo img {
+	  width: 45%; /*tamaño de imagen logo*/
+	  opacity: 0.80;
+	}
+	
+	/*********Mensaje cicloturista quienes somos************/
+	.quienes-item ul li blockquote {
+	font-size: 15px;
+	line-height: 22px;
+	color: #fff;
+	font-weight: 300;
+	text-shadow: 1px 1px 2px #333;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	margin: 15px 0;
+	padding: 3px 80px;
+	position: static;
+	border: 0;
+	}
+	/*********Nombre cicloturista quienes somos************/
+	.quienes-item ul li  small {
+    font-size: 14px;
+    color: #ffff00;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px #333;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+	}
+	/*********imagenes miniaturas cicloturistas quienes somos************/	
+	.bx-wrapper .bx-controls-direction a {
+	position: absolute;
+	top: 50%;
+	margin-top: 96px; /*para cambiar la altura de los controles de desplazado*/
+	outline: 0;
+	width: 92px;
+	height: 74px;
+	text-indent: -9999px; /*Valor desaparece los links de desplazado al ser elevado*/
+	z-index: 9999;
+}
+	
+	.rutas-item p {/*Atributos para parrafos seccion RUTAS*/
+	font-size: 12px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: -4px -4px 4px #000, 4px 4px 4px #000, -4px 4px 4px #000, 4px -4px 4px #000;
+	z-index:2;
+	}
+	.fondorutas{
+	background: url('../img/ruta-ven-costa-recorrido.jpg') no-repeat fixed; /*imagen fija - fondo RUTAS*/
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+	}
+	.texto-fondo-oscuro p {/*Atributos para parrafos de ayudas mapa en ruta*/
+	font-size: 12px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: 2px 2px 3px #000;
+	}
+	
+	.blog-img img {
+	  width: 50%; /*tamaño de las imagenes de donaciones*/
+	  opacity: 0.7;
+	}
+/*	.img-pasos img {
+	  width: 100%; /*tamaño de las imagenes de pasos
+	  opacity: 1;
+	}*/
+}
+
+/**************PANTALLAS DE TAMAÑOS EN *************/
+
+@media (min-width: 768px) and (max-width: 840px) {
+	
+	
+	/******LOGO Animado para carga web*******/
+	#contenedor-logo-carga{
+	position: relative;
+	left: 35%;
+	top: 20%;
+	padding: 0%;
+	width: 35%;
+	}
+   .navbar-brand {
+	  font-size: 14px; /*tamaño de las letras de IREMOSENBICI*/
+	  text-transform: uppercase;
+	  padding: 6% 5%; /* X% altura margen superior X%*/
+	  margin-top: 0%;
+	}
+	.navbar-default .navbar-nav > li > a
+	{
+	  padding: 16px 5px; /* 16px alturas en barra de navegacion de Menu - 5px Separacion de palabras en menu*/
+	  font-size: 10px; /*tamaño de las letras de Menu*/
+	  line-height: 15px;
+	  font-weight: 400;
+	}
+   .blog-imglogo img {
+	  width: 40%; /*tamaño de imagen logo*/
+	  opacity: 0.80;
+	}
+	
+	/*********Mensaje cicloturista quienes somos************/
+	.quienes-item ul li blockquote {
+	font-size: 15px;
+	line-height: 22px;
+	color: #fff;
+	font-weight: 300;
+	text-shadow: 1px 1px 2px #333;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	margin: 15px 0;
+	padding: 3px 80px;
+	position: static;
+	border: 0;
+	}
+	/*********Nombre cicloturista quienes somos************/
+	.quienes-item ul li  small {
+    font-size: 14px;
+    color: #ffff00;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px #333;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+	}
+	/*********imagenes miniaturas cicloturistas quienes somos************/	
+	.bx-wrapper .bx-controls-direction a {
+	position: absolute;
+	top: 50%;
+	margin-top: 96px; /*para cambiar la altura de los controles de desplazado*/
+	outline: 0;
+	width: 92px;
+	height: 74px;
+	text-indent: -9999px; /*Valor desaparece los links de desplazado al ser elevado*/
+	z-index: 9999;
+}
+	
+	.rutas-item p {/*Atributos para parrafos seccion RUTAS*/
+	font-size: 12px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: -4px -4px 4px #000, 4px 4px 4px #000, -4px 4px 4px #000, 4px -4px 4px #000;
+	z-index:2;
+	}
+	.fondorutas{
+	background: url('../img/ruta-ven-costa-recorrido.jpg') no-repeat fixed; /*imagen fija - fondo RUTAS*/
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+	}
+	.texto-fondo-oscuro p {/*Atributos para parrafos de ayudas mapa en ruta*/
+	font-size: 12px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: 2px 2px 3px #000;
+	}
+	
+	.blog-img img {
+	  width: 60%; /*tamaño de las imagenes de donaciones*/
+	  opacity: 0.7;
+	}
+	.img-pasos img {
+	  width: 90%; /*tamaño de las imagenes de pasos*/
+	  opacity: 1;
+	}
+
+}
+/**************PANTALLAS DE TAMAÑOS EN *************/
+@media (min-width: 320px) and (max-width: 768px) {
+   /******LOGO Animado para carga web*******/
+	#contenedor-logo-carga{
+	position: relative;
+	left: 35%;
+	top: 20%;
+	padding: 0%;
+	width: 35%;
+	}
+   .navbar-brand {
+	  font-size: 14px; /*tamaño de las letras de IREMOSENBICI*/
+	  text-transform: uppercase;
+	  padding: 2% 3%; /* X% altura margen superior X%*/
+	  margin-top: 0%;
+	}
+	.navbar-default .navbar-nav > li > a
+	{
+	  padding: 16px 5px; /* 16px alturas en barra de navegacion de Menu - 5px Separacion de palabras en menu*/
+	  font-size: 10px; /*tamaño de las letras de Menu*/
+	  line-height: 15px;
+	  font-weight: 400;
+	}
+   .blog-imglogo img {
+	  width: 19%; /*tamaño de imagen logo*/
+	  opacity: 0.80;
+	}
+	
+	/*********Mensaje cicloturista quienes somos************/
+	.quienes-item ul li blockquote {
+	font-size: 15px;
+	line-height: 22px;
+	color: #fff;
+	font-weight: 300;
+	text-shadow: 1px 1px 2px #333;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	margin: 15px 0;
+	padding: 3px 80px;
+	position: static;
+	border: 0;
+	}
+	/*********Nombre cicloturista quienes somos************/
+	.quienes-item ul li  small {
+    font-size: 14px;
+    color: #ffff00;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px #333;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+	}
+	/*********imagenes miniaturas cicloturistas quienes somos************/	
+	.bx-wrapper .bx-controls-direction a {
+	position: absolute;
+	top: 50%;
+	margin-top: 96px; /*para cambiar la altura de los controles de desplazado*/
+	outline: 0;
+	width: 92px;
+	height: 74px;
+	text-indent: -9999px; /*Valor desaparece los links de desplazado al ser elevado*/
+	z-index: 9999;
+}
+	
+	.rutas-item p {/*Atributos para parrafos seccion RUTAS*/
+	font-size: 12px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: -4px -4px 4px #000, 4px 4px 4px #000, -4px 4px 4px #000, 4px -4px 4px #000;
+	z-index:2;
+	}
+	.fondorutas{
+	background: url('../img/ruta-ven-costa-recorrido.jpg') no-repeat fixed; /*imagen fija - fondo RUTAS*/
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+	}
+	.texto-fondo-oscuro p {/*Atributos para parrafos de ayudas mapa en ruta*/
+	font-size: 12px;
+	opacity: 1;
+	color: #FFF;
+	padding: 10px 0px;
+	text-shadow: 2px 2px 3px #000;
+	}
+	
+	.blog-img img {
+	  width: 60%; /*tamaño de las imagenes de donaciones*/
+	  opacity: 0.7;
+	}
+	.img-pasos img {
+	  width: 90%; /*tamaño de las imagenes de pasos*/
+	  opacity: 1;
+	}
+}
+/**************PANTALLAS DE TAMAÑOS EN *************/
+@media (max-width: 320px) {
+   .navbar-brand {
+	  font-size: 14px; /*tamaño de las letras de IREMOSENBICI*/
+	  text-transform: uppercase;
+	  padding: 2% 5%;
+	  margin-top: 0%;
+	}
+	.navbar-default .navbar-nav > li > a
+	{
+	  padding: 5px 5px;
+	  font-size: 10px; /*tamaño de las letras de Menu*/
+	  line-height: 24px;
+	  font-weight: 400;
+	}
+   .blog-imglogo img {
+	  width: 30%; /*tamaño de imagen logo*/
+	  opacity: 0.80;
+	}
+	.blog-img img {
+	  width: 30%; /*tamaño de las imagenes de donaciones*/
+	  opacity: 0.7;
+	}
+/*	.img-pasos img {
+	  width: 30%; /*tamaño de las imagenes de pasos
+	  opacity: 1;
+	}*/
+}
+
+
+
+/***********************************
+************************************
+Responsive media queries
+************************************
+***********************************/
+
+
+
+@media (min-width: 768px) and (max-width: 980px) {
+ .servicios-item, .blog-sec, .wrap-item, .loction-info{
+    margin-bottom: 15px;
+}
+.galeria-item figure figcaption{
+    padding: 55px 30px;
+}
+.padding-right-zero{
+    padding-right: 15px !important;
+}
+}
+@media (min-width: 451px) and (max-width: 767px) {
+    .servicios-item, .blog-sec, .wrap-item, .loction-info{
+    margin-bottom: 15px;
+}
+}
+@media (min-width: 20px) and (max-width: 450px) {
+.navbar-default .navbar-brand {
+    padding-left: 16px;
+    margin-top: 0px;
+}
+.banner-info {
+    padding-top: 40px;
+}
+h1.bnr-title {
+    font-size: 16px;
+	text-shadow: 2px 2px 1px #FF0;
+}
+h2.bnr-sub-title {
+	font-size: 33px;
+	text-shadow: 2px 2px 1px #FF0;
+}
+body{
+    font-size: 14px;
+}
+.btn-download, .btn-more, .btn-download:hover, .btn-more:hover, .btn-download:focus, .btn-more:focus {
+    font-size: 12px;
+    padding: 7px 18px;
+}
+.wrap-item h3 {
+    font-size: 18px;
+}
+.title, .servicios-title {
+    font-size: 28px;
+}
+.sub-title {
+    font-size: 15px;
+}
+.servicios-item, .blog-sec, .wrap-item, .loction-info{
+    margin-bottom: 15px;
+}
+.loction-info{
+    padding: 0px 15px;
+}
+.galeria-item figure figcaption {
+    padding: 30px 30px;
+}
+.padding-right-zero{
+    padding-right: 15px !important;
+}
+.galeria-item figure p{
+    font-size: 14px;
+}
+.galeria-item figure h2{
+    font-size: 18px;
+}
+.quienes-item ul li blockquote {
+    font-size: 14px;
+    line-height: 22px;
+    margin: 10px 0;
+    padding: 0 40px;
+}
+.navbar-default .navbar-nav > li > a{
+    line-height: 22px;
+    text-align: center;
+}
+}
+
+/***********************************
+************************************
+cta
+************************************
+***********************************/
+.cta {
+    background-color: rgb(73, 84, 105);
+}
+.cta .cta-info {
+    
+    width: 100%;
+    float: left;
+    padding: 30px 25px 30px 15px;
+    border-radius: 5px;
+}
+.cta .cta-info .cta-txt h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+.cta .cta-info .cta-btn {
+    margin-top: 16px;
+    background-color: rgb(190, 158, 33);
+    padding: 20px 50px;
+    color: #FFF;
+    font-size: 22px;
+    display: inline-block;
+    transition: all 0.5s ease-in 0s;
+}
