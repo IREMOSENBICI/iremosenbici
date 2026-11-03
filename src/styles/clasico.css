@@ -72,7 +72,7 @@ html:has(.portada-clasica) {
   flex-wrap: wrap;
 }
 .map-widget .centrar-mapa {
-  margin: 0 15px 12px;
+  margin: 0;
   padding: 8px 12px;
   background: #fff;
   border: 1px solid #888;
@@ -690,11 +690,11 @@ body:not(.portada-clasica) .site-header {
   border: 0;
 }
 .contacto-mapa .map-intro {
-  min-height: 340px;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 25px;
+  padding: 12px;
 }
 .contacto-mapa .map-canvas {
   height: 380px;
