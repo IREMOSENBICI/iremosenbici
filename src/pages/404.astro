@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+Astro.response.status = 404;
+---
+
+<Layout titulo="Este camino no existe">
+  <section class="section empty-page wrap">
+    <span class="eyebrow">404 · UN PEQUEÑO DESVÍO</span>
+    <h1>
+      Este camino
+      <br />
+      no nos lleva allí.
+    </h1>
+    <p>La página no existe o todavía no está publicada.</p>
+    <a class="btn btn-yellow" href="/">
+      Volver al inicio ↗
+    </a>
+  </section>
+</Layout>

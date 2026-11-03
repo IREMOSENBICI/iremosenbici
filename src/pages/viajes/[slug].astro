@@ -1,0 +1,94 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Map from "../../components/Map.astro";
+import Gallery from "../../components/Gallery.astro";
+import Logo from "../../components/Logo.astro";
+import { entorno } from "../../server/env";
+import { viajePublico, etapasPublicas, fotosPublicas } from "../../server/data";
+const viaje = await viajePublico(entorno, Astro.params.slug || "");
+if (!viaje) return Astro.rewrite("/404");
+const [etapas, fotos] = await Promise.all([
+  etapasPublicas(entorno, viaje.id),
+  fotosPublicas(entorno, viaje.id),
+]);
+---
+
+<Layout titulo={viaje.titulo} descripcion={viaje.resumen}>
+  <section class="viaje-hero">
+    <div class="wrap">
+      <a class="breadcrumb" href="/#rutas">
+        ← Todos los viajes
+      </a>
+      <div class="viaje-hero-grid">
+        <div>
+          <span class="badge">
+            {viaje.estado === "planificado"
+              ? "VIAJE PLANIFICADO"
+              : viaje.estado === "completado"
+                ? "VIAJE COMPLETADO"
+                : "VIAJE EN CURSO"}
+          </span>
+          <h1>{viaje.titulo}</h1>
+          <p class="lead">{viaje.resumen}</p>
+        </div>
+        <Logo />
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap viaje-intro">
+      <span class="eyebrow">LA HISTORIA DEL VIAJE</span>
+      <p class="lead preserve-lines">{viaje.descripcion}</p>
+      {viaje.estado === "planificado" && (
+        <p class="notice">
+          Este es un proyecto de viaje. Las ciudades representan un itinerario
+          general; no un recorrido ya realizado.
+        </p>
+      )}
+    </div>
+  </section>
+  <section id="mapa" class="wrap">
+    <Map viaje={viaje.slug} />
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">PASO A PASO, A PEDAL</span>
+          <h2>Las etapas.</h2>
+        </div>
+      </div>
+      <ol class="etapas-lista">
+        {etapas.map((e, i) => (
+          <li id={`etapa-${e.id}`}>
+            <span class="etapa-numero">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <span class="eyebrow">
+                {e.pais} ·{" "}
+                {e.estado === "completada" ? "COMPLETADA" : "PLANIFICADA"}
+              </span>
+              <h3>{e.titulo}</h3>
+              <p class="etapa-ciudad">{e.ciudad}</p>
+              <p class="preserve-lines">{e.descripcion}</p>
+              {e.ruta_json && (
+                <span class="badge badge-light">
+                  Trazado revisado disponible en el mapa
+                </span>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+      {!etapas.length && (
+        <p>Las etapas se publicarán cuando estén listas para compartir.</p>
+      )}
+    </div>
+  </section>
+  <section id="fotos" class="section galeria-section">
+    <div class="wrap">
+      <span class="eyebrow">EL ÁLBUM DEL VIAJE</span>
+      <h2>Momentos para recordar.</h2>
+      <Gallery fotos={fotos} />
+    </div>
+  </section>
+</Layout>

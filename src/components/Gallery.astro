@@ -1,0 +1,68 @@
+---
+import type { Foto } from "../lib/types";
+interface Props {
+  fotos: Foto[];
+}
+const { fotos } = Astro.props;
+---
+
+{fotos.length > 0 ? (
+  <div class="galeria-grid">
+    {fotos.map((f) => (
+      <figure>
+        <a
+          href={`/fotografias/${f.id}`}
+          aria-label={`Abrir fotografía: ${f.titulo}`}
+        >
+          <img
+            src={`/media/${f.id}?mini=1`}
+            alt={f.alternativa}
+            loading="lazy"
+            width="640"
+            height="480"
+          />
+        </a>
+        <figcaption>
+          <strong>
+            {f.tipo === "panorama_360" && <span class="badge">360°</span>}{" "}
+            {f.titulo}
+          </strong>
+          {f.pie && <p>{f.pie}</p>}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+) : (
+  <div class="archivo-grid">
+    <figure class="archivo-principal">
+      <img
+        src="/img/cicloturismo-portada-1080.jpg"
+        alt="Bicicleta de cicloturismo junto a un camino arbolado, imagen del proyecto original"
+        loading="lazy"
+        width="1080"
+        height="720"
+      />
+      <figcaption>El espíritu del proyecto original</figcaption>
+    </figure>
+    <div class="archivo-nota">
+      <span class="eyebrow">UN ÁLBUM POR ESCRIBIR</span>
+      <h3>
+        Las historias también
+        <br />
+        se cuentan en imágenes.
+      </h3>
+      <p>
+        Las fotografías de cada etapa aparecerán aquí cuando estén listas para
+        compartir.
+      </p>
+      <a
+        class="text-link"
+        href="https://www.instagram.com/iremosenbici/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Visita el archivo en Instagram ↗
+      </a>
+    </div>
+  </div>
+)}
