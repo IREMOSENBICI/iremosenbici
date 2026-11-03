@@ -1,4 +1,11 @@
-import type { Entorno, Viaje, Etapa, Foto, CiudadPublica } from "../lib/types";
+import type {
+  Entorno,
+  Viaje,
+  Etapa,
+  Foto,
+  CiudadPublica,
+  FotoMapa,
+} from "../lib/types";
 export async function viajesPublicos(env: Entorno) {
   return (
     await env.DATOS.prepare(
@@ -37,4 +44,27 @@ export async function ciudadPublica(env: Entorno) {
   return env.DATOS.prepare(
     "SELECT ciudad,pais,latitud,longitud,fecha_publicacion FROM ubicacion_publica WHERE id=1 AND visible=1",
   ).first<CiudadPublica>();
+}
+export async function fotosMapaPublicas(env: Entorno, viajeId?: string) {
+  return (
+    await env.DATOS.prepare(
+      `SELECT f.id,f.titulo,f.alternativa,f.pie,f.tipo,f.latitud,f.longitud FROM fotos f
+     WHERE ${FOTO_PUBLICA} AND f.latitud IS NOT NULL AND f.longitud IS NOT NULL
+     ${viajeId ? "AND f.viaje_id=?" : ""} ORDER BY f.actualizado DESC`,
+    )
+      .bind(...(viajeId ? [viajeId] : []))
+      .all<FotoMapa>()
+  ).results;
+}
+export async function etapasMapaPublicas(env: Entorno, viajeId?: string) {
+  return (
+    await env.DATOS.prepare(
+      `SELECT e.id,e.titulo,e.ruta_json FROM etapas e JOIN viajes v ON v.id=e.viaje_id
+     WHERE e.visibilidad='publicado' AND v.visibilidad='publicado'
+     AND e.estado='completada' AND e.ruta_revisada=1 AND e.ruta_json IS NOT NULL
+     ${viajeId ? "AND e.viaje_id=?" : ""} ORDER BY e.orden,e.id`,
+    )
+      .bind(...(viajeId ? [viajeId] : []))
+      .all<Pick<Etapa, "id" | "titulo" | "ruta_json">>()
+  ).results;
 }

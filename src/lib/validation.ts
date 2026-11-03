@@ -32,14 +32,20 @@ export const contactoSchema = z.object({
   empresa: z.string().max(200).default(""),
   solicitud: z.uuid(),
 });
-export const fotoSchema = z.object({
-  id: z.uuid(),
-  titulo: texto(140),
-  alternativa: texto(300),
-  pie: z.string().trim().max(2000),
-  viaje_id: z.string().max(80).nullable(),
-  etapa_id: z.string().max(80).nullable(),
-  visibilidad: z.enum(["borrador", "publicado"]),
-  revision: z.number().int().min(1),
-  norte_grados: z.number().min(0).lt(360).nullable().default(null),
-});
+export const fotoSchema = z
+  .object({
+    id: z.uuid(),
+    titulo: texto(140),
+    alternativa: texto(300),
+    pie: z.string().trim().max(2000),
+    viaje_id: z.string().max(80).nullable(),
+    etapa_id: z.string().max(80).nullable(),
+    visibilidad: z.enum(["borrador", "publicado"]),
+    revision: z.number().int().min(1),
+    norte_grados: z.number().min(0).lt(360).nullable().default(null),
+    latitud: z.number().min(-90).max(90).nullable(),
+    longitud: z.number().min(-180).max(180).nullable(),
+  })
+  .refine((foto) => (foto.latitud === null) === (foto.longitud === null), {
+    message: "Completa latitud y longitud, o deja ambas vacías.",
+  });

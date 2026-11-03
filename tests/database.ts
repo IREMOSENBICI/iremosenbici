@@ -3,7 +3,11 @@ import { readFileSync } from "node:fs";
 import type { Entorno } from "../src/lib/types";
 export function basePrueba() {
   const db = new DatabaseSync(":memory:");
-  for (const archivo of ["0001_inicial.sql", "0002_fotos_360.sql"])
+  for (const archivo of [
+    "0001_inicial.sql",
+    "0002_fotos_360.sql",
+    "0003_fotos_ubicacion_original.sql",
+  ])
     db.exec(
       readFileSync(
         new URL("../migrations/" + archivo, import.meta.url),
