@@ -66,7 +66,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://maps.geoapify.com; connect-src 'self' https://maps.geoapify.com; font-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://maps.geoapify.com; connect-src 'self' https://maps.geoapify.com; font-src 'self'; frame-src https://www.instagram.com https://snapwidget.com; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
   );
   response.headers.set("Cache-Control", "no-store");
   if (privado || entorno.ENTORNO !== "produccion")

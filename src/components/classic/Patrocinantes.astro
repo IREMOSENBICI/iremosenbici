@@ -1,0 +1,123 @@
+---
+import { patrocinantes } from "../../data/clasico";
+---
+
+<section id="patrocinantes" class="classic-section classic-patrocinantes">
+  <div class="classic-container">
+    <h2 class="classic-title">Nuestros Patrocinantes</h2>
+    <hr class="classic-line" />
+    <div class="classic-tarjetas">
+      {patrocinantes.map((p) => (
+        <article class="patro-tarjeta" aria-label={p.nombre}>
+          <div class="patro-giro">
+            <button
+              type="button"
+              class="patro-frente"
+              aria-label={`Voltear tarjeta: ${p.nombre}`}
+              aria-expanded="false"
+            >
+              <img
+                src={p.frente}
+                alt={p.nombre}
+                width="330"
+                height="230"
+                loading="lazy"
+              />
+            </button>
+            <div
+              class="patro-reverso"
+              style={`background-image:url('${p.posterior}')`}
+              inert
+            >
+              <h3>{p.nombre}</h3>
+              <p class="patro-actividad">{p.actividad}</p>
+              {p.enlaces.map((e) => (
+                <p class="patro-enlace">
+                  <i class={`fa fa-${e.icono} fa-fw`} aria-hidden="true"></i>
+                  {e.url ? (
+                    <a href={e.url} target="_blank" rel="noopener noreferrer">
+                      {e.texto}
+                    </a>
+                  ) : (
+                    <span>{e.texto}</span>
+                  )}
+                </p>
+              ))}
+              <button
+                type="button"
+                class="patro-gracias"
+                data-dialogo={p.modal}
+              >
+                Agradecimientos Especiales
+              </button>
+              <button
+                type="button"
+                class="patro-volver"
+                aria-label={`Volver al frente: ${p.nombre}`}
+              >
+                ↶
+              </button>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".patro-tarjeta")
+    .forEach((tarjeta) => {
+      const frente = tarjeta.querySelector<HTMLButtonElement>(".patro-frente")!;
+      const reverso = tarjeta.querySelector<HTMLElement>(".patro-reverso")!;
+      const volver = tarjeta.querySelector<HTMLButtonElement>(".patro-volver")!;
+      let fijada = false;
+      const voltear = (abierta: boolean) => {
+        tarjeta.classList.toggle("volteada", abierta);
+        frente.setAttribute("aria-expanded", String(abierta));
+        frente.inert = abierta;
+        reverso.inert = !abierta;
+      };
+      tarjeta.addEventListener("pointerenter", (e) => {
+        if (e.pointerType === "mouse") voltear(true);
+      });
+      tarjeta.addEventListener("pointerleave", (e) => {
+        if (
+          e.pointerType === "mouse" &&
+          !fijada &&
+          !tarjeta.contains(document.activeElement)
+        )
+          voltear(false);
+      });
+      frente.addEventListener("click", () => {
+        fijada = true;
+        voltear(true);
+        reverso
+          .querySelector<HTMLElement>("a, button")
+          ?.focus({ preventScroll: true });
+      });
+      volver.addEventListener("click", () => {
+        fijada = false;
+        voltear(false);
+        frente.focus({ preventScroll: true });
+      });
+      tarjeta.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          fijada = false;
+          voltear(false);
+          frente.focus({ preventScroll: true });
+        }
+      });
+      tarjeta.addEventListener("focusout", () => {
+        queueMicrotask(() => {
+          if (
+            !tarjeta.contains(document.activeElement) &&
+            !tarjeta.matches(":hover")
+          ) {
+            fijada = false;
+            voltear(false);
+          }
+        });
+      });
+    });
+</script>

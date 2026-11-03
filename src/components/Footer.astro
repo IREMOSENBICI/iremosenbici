@@ -1,39 +1,35 @@
 ---
-import { ciclistas, sitio } from "../data/site";
+import { ciclistas } from "../data/site";
+const duraciones = [
+  30, 30, 50, 40, 20, 35, 35, 20, 60, 60, 60, 40, 50, 25, 32, 70, 40, 35, 35,
+  85, 45,
+];
+const demoras = [
+  2, 3.5, 4, 5, 6, 4, 7, 9, 10, 12, 10.5, 8.5, 12.5, 15.5, 17.5, 18.5, 20.5,
+  22.5, 21.5, 25.5, 28,
+];
+const alturas = [
+  80, 80, 80, 80, 80, 70, 75, 80, 50, 55, 50, 75, 74, 72, 69, 64, 74, 71, 78,
+  72, 62,
+];
 ---
 
-<footer id="footer" class="site-footer">
-  <div class="wrap footer-intro">
-    <p>
-      Un mundo por conocer.
-      <br />
-      <strong>Una bicicleta para empezar.</strong>
-    </p>
-    <a class="text-link" href="/#rutas">
-      Nos vemos en el camino <span aria-hidden="true">↗</span>
-    </a>
-  </div>
-  <div class="ciclistas" aria-hidden="true" data-animacion>
+<footer id="footer" class="classic-footer">
+  <p class="texto-footer">
+    ¡Usa la Bicicleta! el mejor medio de transporte jamas inventado...
+  </p>
+  <div class="classic-ciclistas" aria-hidden="true" data-animacion>
     {ciclistas.map((nombre, i) => (
-      <span
-        class="ciclista-carril"
-        style={`--duracion:${26 + i * 2}s;--demora:-${i * 3}s;--alto:${42 + (i % 5) * 7}px`}
-      >
-        <img src={`/img-ciclistas/${nombre}.png`} alt="" loading="lazy" />
-      </span>
+      <img
+        src={`/img-ciclistas/${nombre}.png`}
+        alt=""
+        loading="lazy"
+        style={`--duracion:${duraciones[i]}s;--demora:${demoras[i]}s;--alto:${alturas[i]}px;z-index:${i + 1}`}
+      />
     ))}
   </div>
-  <div class="wrap footer-bottom">
-    <a href="/" class="wordmark">
-      <span>IREMOS</span>ENBICI
-    </a>
-    <p>Diseñado por Jean Soire · {new Date().getFullYear()}</p>
-    <nav aria-label="Enlaces del pie">
-      <a href={sitio.instagram} target="_blank" rel="noopener noreferrer">
-        Instagram ↗
-      </a>
-      <a href="/privacidad">Privacidad</a>
-      <a href="/admin">Mi panel</a>
-    </nav>
-  </div>
+  <p class="classic-copyright">
+    Diseñado por <a href="/">Jean Soire - Iremosenbici</a> &copy; Todos los
+    derechos Reservados.
+  </p>
 </footer>

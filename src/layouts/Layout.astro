@@ -1,7 +1,9 @@
 ---
 import "../styles/global.css";
+import "../styles/fuentes.css";
+import "../styles/iconos.css";
+import "../styles/clasico.css";
 import Footer from "../components/Footer.astro";
-import Logo from "../components/Logo.astro";
 interface Props {
   titulo?: string;
   descripcion?: string;
@@ -45,34 +47,40 @@ const canonical = new URL(Astro.url.pathname, "https://www.iremosenbici.com")
       />
     )}
   </head>
-  <body>
+  <body class:list={{ "portada-clasica": portada }}>
     <a href="#contenido" class="skip-link">
       Ir al contenido
     </a>
     <header class="site-header">
-      <div class="wrap header-inner">
+      <div class="classic-container header-inner">
         <a class="brand" href="/" aria-label="Iremosenbici, inicio">
-          <span class="wordmark">
+          <span class="wordmark" translate="no">
             <span>IREMOS</span>ENBICI
           </span>
-          <Logo clase="logo-nav" />
+          <img
+            class="logo-nav-clasico"
+            src="/img/iremosenbici-logo.png"
+            alt=""
+            width="80"
+            height="52"
+          />
         </a>
         <button
           class="menu-toggle"
           aria-expanded="false"
           aria-controls="menu-principal"
+          aria-label="Menú"
         >
-          Menú <span aria-hidden="true">☰</span>
+          <span aria-hidden="true">☰</span>
         </button>
         <nav id="menu-principal" aria-label="Navegación principal">
-          <a href="/#quienes">El proyecto</a>
-          <a href="/#rutas">Viajes</a>
-          <a href="/#galeria">Galería</a>
-          <a href="/#patrocinantes">Compañeros</a>
-          <a href="/#contact">Contacto</a>
-          <a class="nav-apoyo" href="/#donaciones">
-            Apoya el viaje ↗
-          </a>
+          <a href="/#quienes">¿Quienes Somos?</a>
+          <a href="/#hacemos">¿Que hacemos?</a>
+          <a href="/#rutas">Rutas</a>
+          <a href="/#galeria">Galeria</a>
+          <a href="/#patrocinantes">Patrocina</a>
+          <a href="/#donaciones">Dona</a>
+          <a href="/#contact">Contactos</a>
         </nav>
       </div>
     </header>
@@ -81,6 +89,11 @@ const canonical = new URL(Astro.url.pathname, "https://www.iremosenbici.com")
     </main>
     {!privada && <Footer />}
     <script>
+      const cabecera = document.querySelector<HTMLElement>(".site-header");
+      const actualizarCabecera = () =>
+        cabecera?.classList.toggle("desplazada", window.scrollY > 50);
+      actualizarCabecera();
+      window.addEventListener("scroll", actualizarCabecera, { passive: true });
       const boton = document.querySelector<HTMLButtonElement>(".menu-toggle");
       const menu = document.querySelector<HTMLElement>("#menu-principal");
       if (boton && menu) {

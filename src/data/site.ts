@@ -2,6 +2,8 @@ export const sitio = {
   nombre: "Iremosenbici",
   lema: "Experimenta la libertad",
   correo: "iremosenbici@gmail.com",
+  telefono: "+584124329567",
+  x: "https://x.com/iremosenbici",
   instagram: "https://www.instagram.com/iremosenbici/",
   facebook: "https://www.facebook.com/iremosenbici/",
   apoyos: [

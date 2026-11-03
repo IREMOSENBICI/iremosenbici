@@ -1,80 +1,162 @@
 ---
 import { sitio } from "../data/site";
+import Map from "./Map.astro";
+import Dialogo from "./classic/Dialogo.astro";
 ---
 
-<section id="contact" class="section contacto">
-  <div class="wrap contacto-grid">
-    <div>
-      <span class="eyebrow">LAS MEJORES HISTORIAS EMPIEZAN CON UN HOLA</span>
-      <h2>
-        Hablemos
-        <br />
-        del camino.
-      </h2>
-      <p>
-        ¿Una idea, un lugar por descubrir o una forma de colaborar? Me encantará
-        leerte.
-      </p>
-      <a class="contact-email" href={`mailto:${sitio.correo}`}>
-        {sitio.correo}
-      </a>
-      <div class="social-links">
-        <a href={sitio.instagram} target="_blank" rel="noopener noreferrer">
-          Instagram ↗
-        </a>
-        <a href={sitio.facebook} target="_blank" rel="noopener noreferrer">
-          Facebook ↗
-        </a>
+<section id="contact" class="classic-section classic-contacto">
+  <div class="classic-container">
+    <h2 class="classic-title">Contactanos</h2>
+    <hr class="classic-line linea-blanca" />
+    <div class="classic-contacto-grid">
+      <div class="contacto-datos">
+        <p>
+          <i class="fa fa-instagram fa-fw" aria-hidden="true"></i>
+          <a href={sitio.instagram} target="_blank" rel="noopener noreferrer">
+            @iremosenbici
+          </a>
+        </p>
+        <p>
+          <i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
+          <a href={sitio.facebook} target="_blank" rel="noopener noreferrer">
+            Iremosenbici
+          </a>
+        </p>
+        <p>
+          <svg class="icono-x" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932zM17.61 20.644h2.039L6.486 3.24H4.298z"
+            />
+          </svg>
+          <a
+            href={sitio.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X: @iremosenbici"
+          >
+            @iremosenbici
+          </a>
+        </p>
+        <p>
+          <i class="fa fa-whatsapp fa-fw" aria-hidden="true"></i>
+          <a
+            href={`https://wa.me/${sitio.telefono.slice(1)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {sitio.telefono}
+          </a>
+        </p>
+        <p>
+          <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+          <span>
+            <a href="mailto:contacto@iremosenbici.com">
+              contacto@iremosenbici.com
+            </a>
+            <br />
+            <a href="mailto:donaciones@iremosenbici.com">
+              donaciones@iremosenbici.com
+            </a>
+          </span>
+        </p>
+        <div class="contacto-accion">
+          <button
+            type="button"
+            class="classic-button"
+            data-dialogo="modalFormularioContacto"
+          >
+            Envianos un Email
+          </button>
+        </div>
+        <p>
+          <i class="fa fa-hand-paper-o fa-fw" aria-hidden="true"></i>
+          <span>¡Pide uno de nuestros artículos personalizados!</span>
+        </p>
+        <div class="contacto-accion">
+          <a
+            class="classic-button"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdchGBhZeciE3zrjX6yIxEGCeFvWSuJ_GOpO0B36rMl0bCXbA/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Solicita tu Artículo
+          </a>
+        </div>
+      </div>
+      <div class="contacto-mapa">
+        <p>
+          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>En cualquier
+          parte del planeta. Actualmente estamos en:
+        </p>
+        <Map compacto />
       </div>
     </div>
-    <form id="formulario-contacto" action="/api/contacto" method="post">
-      <div class="form-two">
-        <label>
-          Tu nombre
-          <input name="nombre" autocomplete="name" maxlength="100" required />
-        </label>
-        <label>
-          Tu correo
-          <input
-            name="email"
-            type="email"
-            autocomplete="email"
-            maxlength="200"
-            required
-          />
-        </label>
-      </div>
-      <label>
-        Asunto
-        <input name="asunto" maxlength="160" required />
-      </label>
-      <label>
-        Tu mensaje
-        <textarea name="mensaje" rows="5" maxlength="5000" required></textarea>
-      </label>
-      <div class="trampa" aria-hidden="true">
-        <label>
-          Empresa
-          <input name="empresa" tabindex="-1" autocomplete="off" />
-        </label>
-      </div>
-      <p class="form-note">
-        Usaré tus datos únicamente para responderte.{" "}
-        <a href="/privacidad">Sobre tu privacidad</a>.
-      </p>
-      <button class="btn btn-dark" type="submit">
-        Enviar mensaje <span aria-hidden="true">↗</span>
-      </button>
-      <p class="form-status" role="status" aria-live="polite"></p>
-      <noscript>
-        <p>
-          Para escribir sin JavaScript, envía un correo a{" "}
-          <a href={`mailto:${sitio.correo}`}>{sitio.correo}</a>.
-        </p>
-      </noscript>
-    </form>
   </div>
 </section>
+<Dialogo id="modalFormularioContacto" titulo="Escribenos">
+  <form
+    id="formulario-contacto"
+    action="/api/contacto"
+    method="post"
+    class="classic-form"
+  >
+    <div class="form-two">
+      <label>
+        Nombre
+        <input
+          name="nombre"
+          autocomplete="name"
+          maxlength="100"
+          placeholder="Ingresa tu nombre"
+          required
+        />
+      </label>
+      <label>
+        Email
+        <input
+          name="email"
+          type="email"
+          autocomplete="email"
+          maxlength="200"
+          placeholder="Ingresa tu email"
+          required
+        />
+      </label>
+    </div>
+    <label>
+      Asunto
+      <input
+        name="asunto"
+        maxlength="160"
+        placeholder="Coloca el asunto"
+        required
+      />
+    </label>
+    <label>
+      Mensaje
+      <textarea
+        name="mensaje"
+        rows="5"
+        maxlength="5000"
+        placeholder="Cuentanos"
+        required
+      ></textarea>
+    </label>
+    <div class="trampa" aria-hidden="true">
+      <label>
+        Empresa
+        <input name="empresa" tabindex="-1" autocomplete="off" />
+      </label>
+    </div>
+    <p class="form-status" role="status" aria-live="polite"></p>
+    <div class="contacto-enviar">
+      <button class="classic-button" type="submit">
+        ENVIAR
+      </button>
+    </div>
+  </form>
+</Dialogo>
 <script>
   const form = document.querySelector<HTMLFormElement>("#formulario-contacto");
   if (form) {

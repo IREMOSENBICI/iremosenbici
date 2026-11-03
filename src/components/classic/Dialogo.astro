@@ -1,0 +1,59 @@
+---
+interface Props {
+  id: string;
+  titulo: string;
+}
+const { id, titulo } = Astro.props;
+---
+
+<dialog id={id} class="classic-dialog" aria-labelledby={`${id}-titulo`}>
+  <header class="dialog-heading">
+    <h2 id={`${id}-titulo`}>{titulo}</h2>
+    <button type="button" data-cerrar-dialogo aria-label="Cerrar">
+      ×
+    </button>
+  </header>
+  <div class="dialog-content">
+    <slot />
+  </div>
+</dialog>
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-dialogo]")
+    .forEach((boton) => {
+      boton.addEventListener("click", () => {
+        const dialogo = document.getElementById(
+          boton.dataset.dialogo!,
+        ) as HTMLDialogElement | null;
+        if (!dialogo) return;
+        dialogo.showModal();
+        document.body.classList.add("dialogo-abierto");
+        dialogo.addEventListener(
+          "close",
+          () => {
+            document.body.classList.remove("dialogo-abierto");
+            boton.focus({ preventScroll: true });
+          },
+          { once: true },
+        );
+      });
+    });
+  document
+    .querySelectorAll<HTMLDialogElement>(".classic-dialog")
+    .forEach((dialogo) => {
+      dialogo.querySelectorAll("[data-cerrar-dialogo]").forEach((boton) => {
+        boton.addEventListener("click", () => dialogo.close());
+      });
+      dialogo.addEventListener("click", (evento) => {
+        if (evento.target !== dialogo) return;
+        const rect = dialogo.getBoundingClientRect();
+        if (
+          evento.clientX < rect.left ||
+          evento.clientX > rect.right ||
+          evento.clientY < rect.top ||
+          evento.clientY > rect.bottom
+        )
+          dialogo.close();
+      });
+    });
+</script>

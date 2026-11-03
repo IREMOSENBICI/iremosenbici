@@ -1,0 +1,131 @@
+---
+import { perfiles } from "../../data/clasico";
+---
+
+<section id="quienes" class="classic-perfiles" aria-label="¿Quienes Somos?">
+  <div class="perfiles-sombra">
+    <div
+      class="classic-container perfiles-slider"
+      role="region"
+      aria-roledescription="carrusel"
+      aria-label="Cicloturistas"
+    >
+      <div class="perfiles-slides" aria-live="polite">
+        {perfiles.map((p, i) => (
+          <article
+            class:list={["perfil-slide", { activo: i === 0 }]}
+            aria-hidden={i !== 0}
+            inert={i !== 0}
+            role="group"
+            aria-roledescription="diapositiva"
+            aria-label={`${i + 1} de ${perfiles.length}`}
+          >
+            <button
+              type="button"
+              class="perfil-imagen"
+              data-dialogo={p.modal}
+              aria-label={`Ver perfil: ${p.nombre.split("\n")[0]}`}
+            >
+              <img
+                src={p.imagen}
+                alt={p.nombre.split("\n")[0]}
+                width="120"
+                height="120"
+                loading="lazy"
+              />
+            </button>
+            <blockquote>{p.frase}</blockquote>
+            <p class="perfil-nombre">{p.nombre}</p>
+          </article>
+        ))}
+      </div>
+      <button
+        type="button"
+        class="perfil-anterior"
+        aria-label="Perfil anterior"
+      >
+        <img
+          src="/img/cicloturismo-prev.png"
+          alt=""
+          width="92"
+          height="74"
+          loading="lazy"
+        />
+      </button>
+      <button
+        type="button"
+        class="perfil-siguiente"
+        aria-label="Perfil siguiente"
+      >
+        <img
+          src="/img/cicloturismo-sig.png"
+          alt=""
+          width="92"
+          height="74"
+          loading="lazy"
+        />
+      </button>
+      <div class="perfiles-puntos" aria-label="Elegir perfil">
+        {perfiles.map((_, i) => (
+          <button
+            type="button"
+            aria-label={`Perfil ${i + 1}`}
+            aria-pressed={i === 0}
+            data-perfil={i}
+          ></button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const slider = document.querySelector<HTMLElement>(".perfiles-slider");
+  if (slider) {
+    const slides = [...slider.querySelectorAll<HTMLElement>(".perfil-slide")];
+    const puntos = [
+      ...slider.querySelectorAll<HTMLButtonElement>("[data-perfil]"),
+    ];
+    let actual = 0;
+    const mostrar = (indice: number) => {
+      actual = (indice + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("activo", i === actual);
+        slide.setAttribute("aria-hidden", String(i !== actual));
+        slide.inert = i !== actual;
+        puntos[i].setAttribute("aria-pressed", String(i === actual));
+      });
+    };
+    slider
+      .querySelector(".perfil-anterior")
+      ?.addEventListener("click", () => mostrar(actual - 1));
+    slider
+      .querySelector(".perfil-siguiente")
+      ?.addEventListener("click", () => mostrar(actual + 1));
+    puntos.forEach((punto, i) =>
+      punto.addEventListener("click", () => mostrar(i)),
+    );
+    slider.addEventListener("keydown", (evento) => {
+      if (evento.key !== "ArrowLeft" && evento.key !== "ArrowRight") return;
+      evento.preventDefault();
+      mostrar(actual + (evento.key === "ArrowRight" ? 1 : -1));
+      puntos[actual].focus({ preventScroll: true });
+    });
+    let inicio = 0;
+    slider.addEventListener(
+      "touchstart",
+      (evento) => {
+        inicio = evento.changedTouches[0].clientX;
+      },
+      { passive: true },
+    );
+    slider.addEventListener(
+      "touchend",
+      (evento) => {
+        const distancia = evento.changedTouches[0].clientX - inicio;
+        if (Math.abs(distancia) > 50)
+          mostrar(actual + (distancia < 0 ? 1 : -1));
+      },
+      { passive: true },
+    );
+  }
+</script>
