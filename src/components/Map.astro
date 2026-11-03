@@ -10,22 +10,28 @@ const { viaje = "", compacto = false, automatico = false } = Astro.props;
 <section
   class="map-widget map-shell"
   data-viaje={viaje}
+  data-modo={compacto ? "ubicacion" : "recorrido"}
   data-automatico={automatico ? "true" : undefined}
-  aria-label="Mapa de rutas y fotografías"
+  aria-label={compacto ? "Mapa de ubicación" : "Mapa de rutas y fotografías"}
 >
-  <div class="map-invitacion map-intro">
-    {!compacto && <span>Rutas · Fotografías · 360°</span>}
+  <div class="map-invitacion map-intro" hidden={automatico}>
     <button class="btn btn-dark abrir-mapa" type="button">
       Abrir mapa <span aria-hidden="true">↗</span>
     </button>
+    {!compacto && (
+      <button type="button" class="centrar-mapa" hidden>
+        Ver Ruta
+      </button>
+    )}
   </div>
-  <button type="button" class="centrar-mapa" hidden>
-    Ver todo el recorrido
-  </button>
   <div
     class="map-canvas"
     hidden={!automatico}
-    aria-label="Mapa interactivo de rutas y fotografías"
+    aria-label={
+      compacto
+        ? "Mapa interactivo de ubicación"
+        : "Mapa interactivo de rutas y fotografías"
+    }
   ></div>
   <p class="map-status" role="status"></p>
   <noscript>

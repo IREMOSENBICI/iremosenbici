@@ -96,10 +96,11 @@ async function mapaLeaflet(
 export function iniciarMapas() {
   let datosGenerales: Promise<DatosMapa> | undefined;
   document.querySelectorAll<HTMLElement>(".map-widget").forEach((widget) => {
+    const introduccion = widget.querySelector<HTMLElement>(".map-intro")!;
     const boton = widget.querySelector<HTMLButtonElement>(".abrir-mapa")!;
     const canvas = widget.querySelector<HTMLElement>(".map-canvas")!;
     const status = widget.querySelector<HTMLElement>(".map-status")!;
-    const centrar = widget.querySelector<HTMLButtonElement>(".centrar-mapa")!;
+    const centrar = widget.querySelector<HTMLButtonElement>(".centrar-mapa");
     let iniciado = false;
     const abrir = async () => {
       if (iniciado) return;
@@ -115,17 +116,25 @@ export function iniciarMapas() {
             throw new Error("No se pudo cargar el mapa. Inténtalo de nuevo.");
           return (await r.json()) as DatosMapa;
         };
-        const datos = await (widget.dataset.viaje
+        const respuesta = await (widget.dataset.viaje
           ? pedir()
           : (datosGenerales ??= pedir()));
+        // Contacto queda centrado en la ubicación publicada, independiente del recorrido.
+        const datos =
+          widget.dataset.modo === "ubicacion"
+            ? { ...respuesta, etapas: [], fotos: [] }
+            : respuesta;
         canvas.hidden = false;
         const control =
           datos.proveedor === "google"
             ? await (await import("./maps-google")).mapaGoogle(canvas, datos)
             : await mapaLeaflet(canvas, datos, status);
-        centrar.hidden = false;
-        centrar.addEventListener("click", () => control.centrar());
+        if (centrar) {
+          centrar.hidden = false;
+          centrar.addEventListener("click", () => control.centrar());
+        }
         boton.hidden = true;
+        introduccion.hidden = !centrar;
         status.textContent =
           datos.etapas.length || datos.fotos.length
             ? `${datos.etapas.length} rutas · ${datos.fotos.length} fotografías en el mapa`
@@ -133,6 +142,8 @@ export function iniciarMapas() {
       } catch (e) {
         status.textContent = (e as Error).message;
         boton.disabled = false;
+        boton.hidden = false;
+        introduccion.hidden = false;
         boton.textContent = "Volver a cargar el mapa";
         iniciado = false;
         datosGenerales = undefined;
