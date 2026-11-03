@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
       env.DATOS.prepare("SELECT * FROM viajes ORDER BY actualizado DESC").all(),
       env.DATOS.prepare("SELECT * FROM etapas ORDER BY viaje_id,orden").all(),
       env.DATOS.prepare(
-        "SELECT id,viaje_id,etapa_id,titulo,alternativa,pie,visibilidad,revision,tipo,norte_grados FROM fotos ORDER BY actualizado DESC",
+        "SELECT id,viaje_id,etapa_id,titulo,alternativa,pie,visibilidad,revision,tipo,norte_grados,latitud,longitud,original IS NOT NULL AS tiene_original FROM fotos ORDER BY actualizado DESC",
       ).all(),
       env.DATOS.prepare("SELECT * FROM ubicacion_publica WHERE id=1").first(),
       env.DATOS.prepare("SELECT * FROM borradores_heredados").all(),
@@ -21,7 +21,10 @@ export const GET: APIRoute = async () => {
       ubicacion,
       borradores: borradores.results,
       servicios: {
-        mapas: !!env.GEOAPIFY_API_KEY,
+        mapas:
+          env.PROVEEDOR_MAPA === "google"
+            ? !!env.GOOGLE_MAPS_API_KEY
+            : !!env.GEOAPIFY_API_KEY,
         correo: !!env.RESEND_API_KEY,
         fotos: !!env.IMAGENES,
       },
@@ -127,7 +130,7 @@ export const POST: APIRoute = async ({ request }) => {
       )
         throw new ErrorHttp(400, "El viaje no existe.");
       resultado = await env.DATOS.prepare(
-        "UPDATE fotos SET titulo=?,alternativa=?,pie=?,viaje_id=?,etapa_id=?,visibilidad=?,norte_grados=?,revision=revision+1,actualizado=datetime('now') WHERE id=? AND revision=?",
+        "UPDATE fotos SET titulo=?,alternativa=?,pie=?,viaje_id=?,etapa_id=?,visibilidad=?,norte_grados=?,latitud=?,longitud=?,revision=revision+1,actualizado=datetime('now') WHERE id=? AND revision=?",
       )
         .bind(
           d.titulo,
@@ -137,6 +140,8 @@ export const POST: APIRoute = async ({ request }) => {
           d.etapa_id,
           d.visibilidad,
           d.norte_grados,
+          d.latitud,
+          d.longitud,
           d.id,
           d.revision,
         )

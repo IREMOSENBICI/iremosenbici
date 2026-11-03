@@ -41,12 +41,10 @@ async function api<T = Resultado>(
         }
       : undefined,
   );
-  const resultado = await respuesta
-    .json()
-    .catch(() => ({
-      error:
-        "No se pudo leer la respuesta. Comprueba tu sesión e inténtalo de nuevo.",
-    }));
+  const resultado = await respuesta.json().catch(() => ({
+    error:
+      "No se pudo leer la respuesta. Comprueba tu sesión e inténtalo de nuevo.",
+  }));
   if (!respuesta.ok)
     throw new Error(
       (resultado as { error?: string }).error ||
@@ -313,7 +311,9 @@ export default function Admin() {
                 <p className="admin-help">
                   JPG, PNG o WebP, hasta 10 MB. Para 360°, exporta desde
                   Insta360 una imagen 2:1 de hasta 8192 × 4096. Se guarda una
-                  copia sin GPS, inicialmente en borrador.
+                  copia para la web y el original completo con sus metadatos,
+                  inicialmente en borrador. Si contiene GPS, se recupera su
+                  ubicación.
                 </p>
                 {contenido.fotos.map((f) => (
                   <button
@@ -711,6 +711,53 @@ function FotoEditor({
             norte={d.norte_grados}
             onChange={(v) => cambiar("norte_grados", v)}
           />
+        )}
+        <h3>Ubicación en MAPA-RUTA</h3>
+        <p className="admin-help">
+          Las coordenadas se leen del archivo cuando están disponibles. Puedes
+          corregirlas o introducirlas manualmente. Al publicar la foto con ambas
+          coordenadas aparecerá en el mapa; sin coordenadas, solo en la galería.
+        </p>
+        <div className="form-two">
+          <Campo titulo="Latitud">
+            <input
+              type="number"
+              min="-90"
+              max="90"
+              step="any"
+              value={d.latitud ?? ""}
+              required={d.longitud !== null}
+              onChange={(e) =>
+                cambiar(
+                  "latitud",
+                  e.target.value === "" ? null : Number(e.target.value),
+                )
+              }
+            />
+          </Campo>
+          <Campo titulo="Longitud">
+            <input
+              type="number"
+              min="-180"
+              max="180"
+              step="any"
+              value={d.longitud ?? ""}
+              required={d.latitud !== null}
+              onChange={(e) =>
+                cambiar(
+                  "longitud",
+                  e.target.value === "" ? null : Number(e.target.value),
+                )
+              }
+            />
+          </Campo>
+        </div>
+        {!!d.tiene_original && (
+          <p>
+            <a href={`/api/admin/fotos?id=${d.id}&original=1`}>
+              Descargar original con metadatos
+            </a>
+          </p>
         )}
         <p className="admin-help">
           Una foto vinculada a un viaje o una etapa en borrador tampoco será

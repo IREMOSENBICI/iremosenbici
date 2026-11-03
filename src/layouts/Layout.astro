@@ -4,6 +4,7 @@ import "../styles/fuentes.css";
 import "../styles/iconos.css";
 import "../styles/clasico.css";
 import Footer from "../components/Footer.astro";
+import Logo from "../components/Logo.astro";
 interface Props {
   titulo?: string;
   descripcion?: string;
@@ -57,13 +58,7 @@ const canonical = new URL(Astro.url.pathname, "https://www.iremosenbici.com")
           <span class="wordmark" translate="no">
             <span>IREMOS</span>ENBICI
           </span>
-          <img
-            class="logo-nav-clasico"
-            src="/img/iremosenbici-logo.png"
-            alt=""
-            width="80"
-            height="52"
-          />
+          <Logo clase="logo-nav-clasico" />
         </a>
         <button
           class="menu-toggle"
@@ -76,7 +71,7 @@ const canonical = new URL(Astro.url.pathname, "https://www.iremosenbici.com")
         <nav id="menu-principal" aria-label="Navegación principal">
           <a href="/#quienes">¿Quienes Somos?</a>
           <a href="/#hacemos">¿Que hacemos?</a>
-          <a href="/#rutas">Rutas</a>
+          <a href="/#mapa-ruta">MAPA-RUTA</a>
           <a href="/#galeria">Galeria</a>
           <a href="/#patrocinantes">Patrocina</a>
           <a href="/#donaciones">Dona</a>

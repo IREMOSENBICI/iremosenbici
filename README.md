@@ -16,7 +16,7 @@ npm test
 npm run build
 ```
 
-El panel local está en http://127.0.0.1:4321/admin. El bypass local exige simultáneamente modo desarrollo, hostname local y la variable explícita; no funciona en un build publicado. `node scripts/verificar-fotos-local.mjs` comprueba el procesamiento real, ausencia de metadatos, publicación, retirada y CSRF contra ese servidor local. Genera una imagen sintética y la deja como borrador.
+El panel local está en http://127.0.0.1:4321/admin. El bypass local exige simultáneamente modo desarrollo, hostname local y la variable explícita; no funciona en un build publicado. `node scripts/verificar-fotos-local.mjs` comprueba el procesamiento real, conservación exacta del original y GPS, publicación en el mapa, retirada y CSRF contra ese servidor local. Genera una imagen sintética y la deja como borrador.
 
 ## Administración desde el móvil
 
@@ -24,7 +24,16 @@ El panel local está en http://127.0.0.1:4321/admin. El bypass local exige simul
 - **Mi ciudad:** buscar y elegir una ciudad, revisar país y publicar. Es una decisión editorial; no se solicita GPS. También puede ocultarse.
 - **Viajes:** crear el título, dirección estable, resumen y relato. Guardar como borrador o publicado. Mantener la dirección de un viaje que ya se haya compartido.
 - **Etapas y rutas:** elegir viaje, ciudad y estado. Importar GPX/KML, revisar el mapa, excluir segmentos o recortar extremos. Un trazado solo puede publicarse con etapa completada y revisión marcada. Los borradores no son visibles para visitantes.
-- **Fotografías:** subir JPG, PNG o WebP de hasta 10 MB y 40 megapíxeles. La web procesa dos copias WebP sin metadatos antes de almacenarlas. Completar título, descripción accesible y viaje/etapa; publicar cuando corresponda. Guardar de nuevo como borrador retira el acceso público a ambas copias.
+- **Fotografías:** subir JPG, PNG o WebP de hasta 10 MB y 40 megapíxeles. Se conserva el original íntegro (incluidos EXIF/GPS/XMP) en R2 y se generan dos copias WebP para visualizar. La lectura de GPS compatible rellena latitud/longitud sin redondear; si faltan o el formato de metadatos no se reconoce, pueden introducirse en el panel. El original puede descargarse desde el editor. Publicar una foto con ambas coordenadas la coloca en MAPA-RUTA; guardar como borrador la retira del mapa y bloquea las copias públicas. Las fotos subidas antes de este cambio no pueden recuperar metadatos ya descartados: deben volver a subirse desde el original si se desean conservar.
+
+## MAPA-RUTA y futura conexión con Google
+
+La sección principal `/#mapa-ruta` sustituye la antigua sección Rutas. El mapa se abre al acercarse a la sección, muestra trazados publicados de todos los viajes y fotos normales/360 con coordenadas. Un marcador abre su miniatura y el enlace a la fotografía o al visor 360. No se dibuja una ruta ficticia entre países. La antigua página `/viajes/venezuela-costa-rica` y sus enlaces heredados redirigen a la sección; se excluye del sitemap sin borrar los datos del viaje.
+
+Se mantiene Geoapify/Leaflet. Por decisión del propietario Google no se activa todavía, no se crea ninguna cuenta de facturación ni clave. El adaptador `src/scripts/maps-google.ts` está preparado para la misma respuesta `/api/mapa`, con vista satélite y etiquetas (`hybrid`). Para una activación futura: habilitar Maps JavaScript API y facturación en el proyecto elegido; restringir la clave web a los dominios de Iremosenbici y a esa API; configurar cuotas/alertas; añadir `GOOGLE_MAPS_API_KEY` y seleccionar `PROVEEDOR_MAPA=google` en el entorno correspondiente. Esta clave web se entrega al navegador por diseño, a diferencia de los secretos privados de Geoapify/Resend. La CSP admite los recursos de Google solo si se activa ese proveedor. Validar entonces la carga, las restricciones, la CSP, el consumo y la interacción con una clave real: la integración no se ha probado contra Google sin credenciales. La vista satélite solo estará disponible al activar Google.
+
+Los originales, las coordenadas y los trazados se almacenan independientemente del proveedor cartográfico. Las rutas ya pueden importarse como GPX/KML desde el panel de etapas. Vídeos, integraciones con aplicaciones de recorrido y sincronización automática quedan para una fase posterior; añadirán sus puntos y reproductores al contrato del mapa sin sustituir los archivos originales. Mostrar contenido en esta web no lo publica en Google Maps/Street View.
+
 - **Archivo heredado:** referencias históricas y mapas recuperados. Las rutas recuperadas se conservan como etapas privadas; no representan recorridos ya realizados. Los tramos largos están divididos, conservando un punto compartido y sin inventar geometría.
 
 No se almacenan originales de fotografías. Conservar los archivos maestros de la cámara en un respaldo personal. Retirar una publicación no borra copias que alguien haya descargado antes.
@@ -49,10 +58,10 @@ El sitio inicial es español, con `lang=es`, direcciones canónicas y un campo d
 
 La cuenta de este proyecto es `1a9b246cafcf45c527a8061e7a3590ad`. Usar siempre `npm run cf -- ...`: el wrapper aísla la sesión de Wrangler en `.wrangler/cuenta` y evita utilizar otra cuenta del equipo. Para autenticar en otro ordenador, ejecutar `npm run cf -- login` y verificar la cuenta antes de desplegar.
 
-| Entorno | Worker | D1 | R2 |
-|---|---|---|---|
-| Pruebas | iremosenbici-pruebas | iremosenbici-pruebas | iremosenbici-fotos-pruebas |
-| Producción | iremosenbici | iremosenbici | iremosenbici-fotos |
+| Entorno    | Worker               | D1                   | R2                         |
+| ---------- | -------------------- | -------------------- | -------------------------- |
+| Pruebas    | iremosenbici-pruebas | iremosenbici-pruebas | iremosenbici-fotos-pruebas |
+| Producción | iremosenbici         | iremosenbici         | iremosenbici-fotos         |
 
 Secretos de ambos Workers: `GEOAPIFY_API_KEY`, `RESEND_API_KEY`, `SECRETO_SITIO`. Nunca poner valores en Git, HTML ni JavaScript cliente. La clave Resend tiene únicamente permiso de envío para `notificaciones.iremosenbici.com`. `ACCESS_TEAM_DOMAIN` y `ACCESS_AUD` son identificadores públicos; el servidor valida firma, audiencia, emisor, caducidad y correo del JWT.
 
@@ -82,4 +91,3 @@ Verificación del 3 de noviembre de 2026: 22 pruebas, tipos y builds aprobados; 
 Las comprobaciones HTTP de producción verificaron portada, viaje, privacidad, sitemap, robots, redirecciones antiguas, rechazo de orígenes ajenos, protección del panel/API y ausencia de fotografías de prueba o rutas privadas. La CI comprueba tipos, privacidad y build; no despliega ni necesita secretos.
 
 Los KML recuperados y su SQL se guardan fuera de Git, en `artifacts/mapas-heredados`. `scripts/preparar-mapas-heredados.mjs` genera importaciones privadas idempotentes para una base inicial. No publicar esos archivos ni ejecutar la importación para sobrescribir una edición posterior.
-

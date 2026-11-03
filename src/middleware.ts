@@ -4,20 +4,22 @@ import { verificarAcceso, mismoOrigen } from "./server/auth";
 import { json } from "./lib/http";
 const antiguas: Record<string, string> = {
   "/index.html": "/",
-  "/ruta-venezuela-costarica.html": "/viajes/venezuela-costa-rica",
+  "/ruta-venezuela-costarica.html": "/#mapa-ruta",
+  "/viajes/venezuela-costa-rica": "/#mapa-ruta",
+  "/viajes/venezuela-costa-rica/": "/#mapa-ruta",
   "/menu.html": "/",
-  "/menu-rutas.html": "/viajes/venezuela-costa-rica",
+  "/menu-rutas.html": "/#mapa-ruta",
   "/somos.html": "/#quienes",
   "/hacemos.html": "/#hacemos",
-  "/rutas.html": "/#rutas",
+  "/rutas.html": "/#mapa-ruta",
   "/galeria.html": "/#galeria",
   "/patrocinantes.html": "/#patrocinantes",
   "/donaciones.html": "/#donaciones",
   "/contactenos.html": "/#contact",
   "/footer.html": "/#footer",
-  "/rutas/mapa-vene-costa.html": "/viajes/venezuela-costa-rica#mapa",
-  "/rutas/fotos-vene-costa.html": "/viajes/venezuela-costa-rica#fotos",
-  "/rutas/recomienda-vene-costa.html": "/viajes/venezuela-costa-rica",
+  "/rutas/mapa-vene-costa.html": "/#mapa-ruta",
+  "/rutas/fotos-vene-costa.html": "/#galeria",
+  "/rutas/recomienda-vene-costa.html": "/#mapa-ruta",
   "/rutas/agradecemos-vene-costa.html": "/#patrocinantes",
 };
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -64,9 +66,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
     "geolocation=(),camera=(),microphone=(),accelerometer=(self),gyroscope=(self),magnetometer=(self)",
   );
   response.headers.set("X-Frame-Options", "DENY");
+  const google =
+    entorno.PROVEEDOR_MAPA === "google" && !!entorno.GOOGLE_MAPS_API_KEY;
+  const scriptsMapa = google
+    ? " https://maps.googleapis.com https://maps.gstatic.com"
+    : "";
+  const recursosMapa = google
+    ? " https://*.googleapis.com https://*.gstatic.com https://*.google.com https://*.googleusercontent.com"
+    : "";
   response.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://maps.geoapify.com; connect-src 'self' https://maps.geoapify.com; font-src 'self'; frame-src https://www.instagram.com https://snapwidget.com; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    `default-src 'self'; script-src 'self' 'unsafe-inline'${scriptsMapa}; style-src 'self' 'unsafe-inline'${google ? " https://fonts.googleapis.com" : ""}; img-src 'self' data: blob: https://maps.geoapify.com${recursosMapa}; connect-src 'self' https://maps.geoapify.com${recursosMapa}; font-src 'self'${google ? " https://fonts.gstatic.com" : ""}; frame-src https://www.instagram.com https://snapwidget.com${google ? " https://*.google.com" : ""}; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`,
   );
   response.headers.set("Cache-Control", "no-store");
   if (privado || entorno.ENTORNO !== "produccion")
