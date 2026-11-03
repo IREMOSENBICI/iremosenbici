@@ -58,6 +58,8 @@ Access protege todo `pruebas.iremosenbici.com` y `/admin*` y `/api/admin/*` del 
 
 Por decisión del propietario se mantiene **Workers Free**: no se ha contratado Workers Paid. Los límites gratuitos pueden detener peticiones si se superan. Images Free tiene una cuota de transformaciones; la aplicación guarda las copias procesadas para no repetir el trabajo con cada visita. R2 tiene facturación por exceso de las cuotas autorizadas; el objetivo de presupuesto no equivale a un límite automático. Geoapify y Resend usan sus planes gratuitos. No ampliar ningún plan automáticamente.
 
+Cloudflare tiene la alerta de facturación **Iremosenbici · aviso a US$5**, enviada a `iremosenbici@gmail.com`. Es una notificación, no un bloqueo de gasto. Revisar además las cuotas propias de mapas, correo y almacenamiento.
+
 ## Despliegue y reversión
 
 ```sh
@@ -69,8 +71,13 @@ npm run deploy:produccion
 
 El build de producción selecciona expresamente `CLOUDFLARE_ENV=produccion`. No desplegar un build de pruebas con la bandera de producción: las vinculaciones se resuelven al compilar. Revisar siempre el nombre de Worker, D1 y R2 que imprime Wrangler. Los dominios se configuran en `wrangler.jsonc` y deben mantenerse coherentes con el panel.
 
-La referencia recuperable de la web clásica es la rama `respaldo/sitio-clasico-2026-11-03`, commit `858e08cfb2ed1a1667ac05053c40d334f3ef2982`. Para revertir una versión moderna, usar el historial de implementaciones de cada Worker. Para volver al sitio clásico, restaurar ese commit en el alojamiento de GitHub Pages (raíz, CNAME `www.iremosenbici.com`) y devolver el DNS/ruta de `www` al alojamiento anterior. Comprobar HTTPS y la redirección del dominio raíz antes de retirar la versión de Workers. No borrar D1, R2, Access ni el respaldo durante una reversión.
+La referencia recuperable de la web clásica es la rama `respaldo/sitio-clasico-2026-11-03`, commit `858e08cfb2ed1a1667ac05053c40d334f3ef2982`. GitHub Pages conserva esa rama, carpeta raíz, como respaldo. Producción se sirve mediante la ruta de Worker `www.iremosenbici.com/*`; el CNAME `www → iremosenbici.github.io` está ahora con proxy de Cloudflare. El dominio raíz mantiene su redirección a HTTPS www. SSL está en Completo (estricto), con Usar siempre HTTPS activado.
 
-Antes del cambio definitivo: probar login, foto completa y miniatura sin EXIF/GPS, publicación y retirada, trazado completado y revisado, formulario con envío y error, móvil/teclado y enlaces antiguos. La CI comprueba tipos, privacidad y build; no despliega ni necesita secretos.
+Para revertir una versión moderna, usar el historial de implementaciones del Worker. Para volver temporalmente al sitio clásico, comprobar primero que GitHub Pages sirve correctamente la rama de respaldo y retirar la ruta `www.iremosenbici.com/*` del Worker: el CNAME conserva el origen anterior. Mantener el proxy y Usar siempre HTTPS. Comprobar portada, certificado y redirección del dominio raíz. Si también se modifica `wrangler.jsonc`, registrar ese cambio antes del siguiente despliegue para no reactivar la ruta por accidente. No borrar D1, R2, Access ni el respaldo durante una reversión.
+
+Verificación del 3 de noviembre de 2026: 22 pruebas, tipos y builds aprobados; portada, viaje y editor sin desbordamiento a 320/390/768/1024/1440 px; navegación y tarjetas con teclado; importación, publicación condicionada y retirada de etapa; una foto 360 sintética procesada en Cloudflare con copia completa y miniatura sin EXIF/XMP/IPTC; login por PIN y validación del JWT; mapa con teselas reales; correo de prueba recibido y error local que conserva el texto. La foto sintética quedó como borrador en pruebas y no existe en producción. No se publicó ninguna ciudad de ejemplo. La brújula debe comprobarse también en móviles y tablets físicos.
+
+Las comprobaciones HTTP de producción verificaron portada, viaje, privacidad, sitemap, robots, redirecciones antiguas, rechazo de orígenes ajenos, protección del panel/API y ausencia de fotografías de prueba o rutas privadas. La CI comprueba tipos, privacidad y build; no despliega ni necesita secretos.
 
 Los KML recuperados y su SQL se guardan fuera de Git, en `artifacts/mapas-heredados`. `scripts/preparar-mapas-heredados.mjs` genera importaciones privadas idempotentes para una base inicial. No publicar esos archivos ni ejecutar la importación para sobrescribir una edición posterior.
+
