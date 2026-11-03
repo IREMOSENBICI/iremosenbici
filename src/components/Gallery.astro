@@ -32,37 +32,4 @@ const { fotos } = Astro.props;
       </figure>
     ))}
   </div>
-) : (
-  <div class="archivo-grid">
-    <figure class="archivo-principal">
-      <img
-        src="/img/cicloturismo-portada-1080.jpg"
-        alt="Bicicleta de cicloturismo junto a un camino arbolado, imagen del proyecto original"
-        loading="lazy"
-        width="1080"
-        height="720"
-      />
-      <figcaption>El espíritu del proyecto original</figcaption>
-    </figure>
-    <div class="archivo-nota">
-      <span class="eyebrow">UN ÁLBUM POR ESCRIBIR</span>
-      <h3>
-        Las historias también
-        <br />
-        se cuentan en imágenes.
-      </h3>
-      <p>
-        Las fotografías de cada etapa aparecerán aquí cuando estén listas para
-        compartir.
-      </p>
-      <a
-        class="text-link"
-        href="https://www.instagram.com/iremosenbici/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Visita el archivo en Instagram ↗
-      </a>
-    </div>
-  </div>
-)}
+) : null}

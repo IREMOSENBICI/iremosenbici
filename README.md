@@ -2,6 +2,8 @@
 
 Web de cicloturismo en Astro, TypeScript y CSS. React se carga en el panel privado; Leaflet y el visor Photo Sphere Viewer solo cuando se abren. Conserva las piezas originales del logo, los ciclistas del pie y el contenido real del proyecto.
 
+La portada conserva los textos y la estética del sitio clásico (`858e08c`): cabecera fija transparente, fuentes Roboto/Raleway locales, fondos originales, cuatro perfiles con transición, seis tarjetas con giro 3D y agradecimientos, donaciones y ciclistas con desvanecimiento y cambio de dirección. Los componentes están en `src/components/classic`, el contenido en `src/data/clasico.ts` y los estilos en `src/styles/clasico.css`. Las interacciones usan TypeScript, CSS y diálogos nativos, sin jQuery ni Bootstrap. La galería utiliza las fotografías publicadas desde el panel; cuando no hay fotos, muestra las tres publicaciones originales de Instagram. Sus marcos dependen de Instagram y conservan las leyendas locales. El contacto usa el teléfono +584124329567 y el icono de X.
+
 ## Desarrollo
 
 Requiere Node 24. Ejecutar `npm ci`, copiar `.dev.vars.example` a `.dev.vars`, generar un `SECRETO_SITIO` aleatorio y activar `PERMITIR_ADMIN_LOCAL=true` únicamente en ese archivo local. Después:

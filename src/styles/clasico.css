@@ -1,0 +1,1114 @@
+/* Apariencia original de Jean Soire (858e08c), sobre componentes Astro. */
+html:has(.portada-clasica) {
+  scroll-padding-top: 0;
+}
+.classic-container {
+  width: 1170px;
+  max-width: calc(100% - 30px);
+  margin-inline: auto;
+  padding-inline: 15px;
+}
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  padding: 20px 0;
+  background: transparent;
+  border: 0;
+  transition: padding 0.3s;
+  font-family: Roboto, Arial, sans-serif;
+}
+.site-header.desplazada {
+  padding-block: 0;
+}
+.header-inner {
+  min-height: 64px;
+  gap: 25px;
+}
+.site-header .brand {
+  gap: 10px;
+}
+.site-header .wordmark {
+  color: white;
+  font-family: Raleway, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  text-shadow: 0 1px 3px #333;
+}
+.site-header .wordmark span {
+  color: #ff0;
+  font-weight: 700;
+}
+.logo-nav-clasico {
+  width: 80px;
+  height: auto;
+  opacity: 0.8;
+  transition:
+    transform 0.5s,
+    opacity 0.5s;
+}
+.brand:hover .logo-nav-clasico {
+  opacity: 1;
+  transform: scale(1.05);
+}
+.site-header nav {
+  gap: 0;
+}
+.site-header nav a {
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: 54px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: white;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 3px #222,
+    0 0 6px #222;
+}
+.site-header nav a:hover,
+.site-header nav a:focus-visible {
+  color: #ff0;
+  text-decoration: none;
+}
+.site-header .menu-toggle {
+  color: white;
+  text-shadow: 0 1px 3px black;
+  font-size: 24px;
+}
+body:not(.portada-clasica) {
+  padding-top: 104px;
+}
+body:not(.portada-clasica) .site-header {
+  background: #666;
+}
+.classic,
+.classic-footer,
+.classic-dialog {
+  color: #67696c;
+  font:
+    300 16px/1.4 Roboto,
+    Arial,
+    sans-serif;
+  letter-spacing: 0.5px;
+}
+.classic {
+  background: white;
+  font-synthesis: weight;
+}
+.classic h1,
+.classic h2,
+.classic h3,
+.classic h4,
+.classic-dialog h2,
+.classic-dialog h4,
+.classic-dialog h5,
+.classic-dialog h6 {
+  font-family: Raleway, sans-serif;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.1;
+  text-wrap: initial;
+}
+.classic p {
+  margin: 0 0 10px;
+}
+.classic a {
+  text-decoration: none;
+}
+.classic a:hover {
+  text-decoration: underline;
+}
+.classic-section {
+  padding-block: 60px;
+}
+.classic .classic-title {
+  font:
+    600 35px/1.1 Verdana,
+    sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: -1px -1px 1px #333;
+  background: linear-gradient(yellow, white);
+  background-clip: text;
+  color: transparent;
+  margin: 20px 0 10px;
+  padding-bottom: 5px;
+}
+.classic-line {
+  width: 50px;
+  height: 3px;
+  background: #ff0;
+  margin: 10px auto 20px;
+  border: 0;
+}
+.classic .classic-subtitle {
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+.classic-hero {
+  background: url("/img/cicloturismo-portada-1080.jpg") no-repeat fixed;
+  background-size: cover;
+  min-height: 650px;
+  position: relative;
+}
+.hero-sombra {
+  min-height: 650px;
+  background: rgb(0 0 0 / 50%);
+}
+.classic-banner {
+  padding-top: 140px;
+  text-align: center;
+  color: white;
+}
+.classic-banner h1 {
+  font-family: Arial, sans-serif;
+  font-size: 45px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #ff0;
+  padding-block: 20px;
+  margin: 20px 0 10px;
+}
+.classic-bajar {
+  position: absolute;
+  bottom: 25px;
+  left: calc(50% - 20px);
+  width: 40px;
+  color: white;
+  font-size: 38px;
+}
+.classic-perfiles {
+  min-height: 450px;
+  background: url("/img/bg-autopista.jpg") center/cover no-repeat;
+}
+.perfiles-sombra {
+  min-height: 450px;
+  background: rgb(73 84 105 / 30%);
+}
+.perfiles-slider {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 90px;
+}
+.perfiles-slides {
+  position: relative;
+  min-height: 300px;
+}
+.perfil-slide {
+  position: absolute;
+  inset: 0;
+  padding: 15px 80px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s,
+    visibility 0.5s;
+  text-align: center;
+}
+.perfil-slide.activo {
+  opacity: 1;
+  visibility: visible;
+}
+.perfil-imagen {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0 auto 35px;
+  display: block;
+}
+.perfil-imagen img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid white;
+  transition: transform 0.5s;
+}
+.perfil-imagen:hover img {
+  transform: scale(1.05);
+}
+.perfil-slide blockquote {
+  position: relative;
+  margin: 0 0 25px;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 300;
+  color: white;
+  text-shadow: 1px 1px 2px #333;
+}
+.perfil-slide blockquote::before,
+.perfil-slide blockquote::after {
+  position: absolute;
+  font:
+    300 54px Georgia,
+    serif;
+  color: #ccc;
+  top: -8px;
+}
+.perfil-slide blockquote::before {
+  content: "“";
+  left: -50px;
+}
+.perfil-slide blockquote::after {
+  content: "”";
+  right: -50px;
+}
+.perfil-slide .perfil-nombre {
+  white-space: pre-line;
+  color: #ff0;
+  font-weight: 400;
+  text-shadow: 1px 1px 2px #333;
+}
+.perfil-anterior,
+.perfil-siguiente {
+  position: absolute;
+  bottom: 75px;
+  background: none;
+  border: 0;
+  padding: 0;
+  width: 92px;
+  height: 74px;
+  transition: transform 0.1s;
+}
+.perfil-anterior {
+  left: 10px;
+}
+.perfil-siguiente {
+  right: 10px;
+}
+.perfil-anterior:hover {
+  transform: translateX(-5px);
+}
+.perfil-siguiente:hover {
+  transform: translateX(5px);
+}
+.perfiles-puntos {
+  position: absolute;
+  bottom: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+.perfiles-puntos button {
+  border: 0;
+  width: 24px;
+  height: 32px;
+  background: none;
+  padding: 7px;
+}
+.perfiles-puntos button::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #ff0;
+  border-radius: 50%;
+}
+.perfiles-puntos button[aria-pressed="true"]::before {
+  background: white;
+}
+.classic-hacemos,
+.classic-footer,
+.classic-dialog .dialog-content {
+  background: url("/img/iremosenbici-fondo-logo-diagonal.jpg") fixed;
+}
+.classic-pilares {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+.classic-pilares img {
+  margin: 0 auto 15px;
+  width: auto;
+  height: 128px;
+  object-fit: contain;
+}
+.classic-pilares h3 {
+  font-size: 24px;
+  line-height: 25px;
+  margin: 20px 0 10px;
+  padding-bottom: 5px;
+}
+.classic-rutas {
+  background: url("/img/ruta-ven-costa-recorrido.jpg") no-repeat fixed;
+  background-size: cover;
+  min-height: 650px;
+}
+.rutas-sombra {
+  background: rgb(0 0 0 / 30%);
+  min-height: 650px;
+}
+.classic .titulo-ruta {
+  color: white;
+  text-shadow: 2px 2px 3px #000;
+  background: none;
+}
+.classic-logo-ruta {
+  padding-left: 2.5%;
+  height: 145px;
+}
+.classic-logo-ruta .logo-animado {
+  width: 175px;
+}
+.classic-paises {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.classic-paises article {
+  position: relative;
+  isolation: isolate;
+}
+.classic-paises h3 {
+  font-size: 24px;
+  color: black;
+  text-shadow:
+    -2px -2px 2px #ff0,
+    2px 2px 2px #ff0,
+    -2px 2px 2px white,
+    2px -2px 2px white;
+  margin: 20px 0 10px;
+}
+.classic-paises h3 span {
+  font-size: 75px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -5px;
+  padding-right: 6px;
+  color: grey;
+}
+.classic-paises img {
+  position: absolute;
+  width: 100px;
+  height: 120px;
+  object-fit: contain;
+  top: 0;
+  left: 55%;
+  z-index: -1;
+  opacity: 0.9;
+  padding-block: 10px;
+}
+.classic-paises p {
+  color: white;
+  padding: 10px 0;
+  text-shadow:
+    -4px -4px 4px black,
+    4px 4px 4px black,
+    -4px 4px 4px black,
+    4px -4px 4px black;
+}
+.classic-ruta-enlace {
+  text-align: center;
+  color: #ff0;
+  text-shadow:
+    -2px -2px 2px black,
+    2px 2px 2px black;
+}
+.classic-patrocinantes {
+  background: url("/img/fondo-patrocinantes-tablas3.jpg") no-repeat fixed;
+  background-size: cover;
+  min-height: 650px;
+}
+.classic-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 46px 30px;
+  padding-block: 23px;
+}
+.patro-tarjeta {
+  width: 100%;
+  max-width: 330px;
+  min-width: 0;
+  aspect-ratio: 330/230;
+  margin-inline: auto;
+}
+.patro-giro {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: perspective(600px);
+  transform-origin: 100% 50%;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+  border-radius: 15px;
+  box-shadow:
+    0 0 15px black,
+    inset 0 1px 0 rgb(255 255 255 / 60%);
+}
+.patro-tarjeta.volteada .patro-giro {
+  transform: perspective(600px) rotateY(-180deg) translateX(100%);
+}
+.patro-frente,
+.patro-reverso {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 15px;
+  backface-visibility: hidden;
+}
+.patro-frente {
+  padding: 0;
+  background: transparent;
+}
+.patro-frente img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+.patro-reverso {
+  transform: rotateY(-180deg);
+  background-size: 100% 100%;
+  padding: 10px 28px 8px 26px;
+  color: black;
+}
+.patro-reverso h3 {
+  font:
+    700 16px/1.4 Roboto,
+    sans-serif;
+  text-shadow: 2px 2px 2px white;
+  margin: 0 0 7px;
+}
+.patro-reverso .patro-actividad {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.25;
+  text-shadow: 2px 2px 1px #999900;
+  margin-bottom: 7px;
+}
+.patro-reverso .patro-enlace {
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 1px white;
+}
+.patro-enlace i {
+  margin-right: 4px;
+  font-size: 16px;
+}
+.patro-reverso a {
+  color: #337ab7;
+}
+.patro-gracias {
+  display: block;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: #006;
+  text-shadow: 1px 1px 1px white;
+}
+.patro-volver {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  background: none;
+  border: 0;
+  color: #333;
+  font-size: 20px;
+  line-height: 1;
+  padding: 3px;
+}
+.donaciones-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px;
+  margin-top: 15px;
+  align-items: center;
+}
+.donaciones-grid button {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.donaciones-grid img {
+  margin: auto;
+  max-height: 170px;
+  width: auto;
+  transition:
+    transform 0.5s,
+    opacity 0.5s;
+  opacity: 0.8;
+}
+.donaciones-grid :is(a, button):hover img {
+  opacity: 1;
+  transform: scale(1.05);
+}
+.archivo-snap {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 6;
+  min-height: 150px;
+  border: 0;
+  margin-top: 20px;
+}
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+.instagram-original {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font:
+    14px/1.4 Arial,
+    sans-serif;
+  padding: 12px;
+}
+.instagram-original iframe {
+  width: 100%;
+  height: 520px;
+  border: 0;
+}
+.instagram-original p:last-child {
+  color: #999;
+  font-size: 12px;
+}
+.classic-contacto {
+  background: #666;
+  color: white;
+}
+.linea-blanca {
+  background: white;
+}
+.classic-contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+.contacto-datos p,
+.contacto-mapa > p {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+.contacto-datos i,
+.contacto-mapa > p i,
+.icono-x {
+  font-size: 32px;
+  color: #ff0;
+  text-shadow: -1px -1px 1px black;
+  width: 40px;
+  flex: 0 0 40px;
+}
+.icono-x {
+  height: 28px;
+}
+.contacto-datos a {
+  text-shadow: -1px -1px 1px black;
+  overflow-wrap: anywhere;
+}
+.contacto-accion {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.classic-button {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #ff0;
+  color: #ff0;
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 60px;
+  padding: 6px 20px;
+  text-decoration: none;
+}
+.classic-button:hover {
+  background: #555;
+  color: #ff0;
+}
+.contacto-mapa .map-widget {
+  margin: 0 auto;
+  width: 95%;
+  min-height: 380px;
+  background: #e5e5e5;
+  color: #333;
+  border: 0;
+}
+.contacto-mapa .map-intro {
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+.contacto-mapa .map-canvas {
+  height: 380px;
+}
+.contacto-mapa .map-status:empty {
+  display: none;
+}
+.classic-footer {
+  padding-top: 1px;
+  text-align: center;
+  overflow: hidden;
+}
+.classic-footer .texto-footer {
+  color: #ffff33;
+  text-shadow:
+    -1px -1px 1px black,
+    1px 1px 1px black,
+    -1px 1px 1px black,
+    1px -1px 1px black;
+  font-size: 14px;
+  margin: 10px 15px;
+}
+.classic-ciclistas {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+}
+.classic-ciclistas img {
+  position: absolute;
+  height: var(--alto);
+  width: auto;
+  max-width: none;
+  bottom: 0;
+  left: 10%;
+  opacity: 0;
+  animation: ciclista-original var(--duracion) var(--demora) ease-out infinite;
+  animation-play-state: var(--animacion);
+}
+@keyframes ciclista-original {
+  0% {
+    left: 10%;
+    opacity: 0;
+    transform: rotateY(0deg);
+  }
+  20% {
+    left: 30%;
+    opacity: 1;
+  }
+  30% {
+    left: 60%;
+    opacity: 1;
+  }
+  45% {
+    left: 80%;
+    opacity: 0;
+    transform: rotateY(0deg);
+  }
+  50% {
+    left: 80%;
+    opacity: 0;
+    transform: rotateY(-180deg);
+  }
+  70% {
+    left: 60%;
+    opacity: 1;
+  }
+  80% {
+    left: 30%;
+    opacity: 1;
+  }
+  90% {
+    left: 10%;
+    opacity: 0;
+    transform: rotateY(-180deg);
+  }
+  100% {
+    left: 10%;
+    opacity: 0;
+    transform: rotateY(0deg);
+  }
+}
+.classic-copyright {
+  font:
+    600 12px/1.1 Raleway,
+    sans-serif;
+  margin: 10px 15px;
+}
+.classic-copyright a {
+  color: #337ab7;
+  text-decoration: none;
+}
+.classic-dialog {
+  width: 600px;
+  max-width: calc(100% - 24px);
+  max-height: calc(100svh - 40px);
+  padding: 0;
+  border: 1px solid #999;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px #0008;
+  background: white;
+  overflow: auto;
+}
+.classic-dialog::backdrop {
+  background: #0008;
+}
+body.dialogo-abierto {
+  overflow: hidden;
+}
+.dialog-heading {
+  display: flex;
+  align-items: start;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.classic-dialog .dialog-heading h2 {
+  font-size: 18px;
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+.dialog-heading button {
+  font:
+    700 24px/1 Arial,
+    sans-serif;
+  color: #555;
+  border: 0;
+  background: none;
+}
+.dialog-content {
+  padding: 15px;
+}
+.classic-dialog h4 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.classic-dialog h5 {
+  font-size: 14px;
+  margin: 10px 0;
+}
+.classic-dialog h6 {
+  font-size: 12px;
+  margin: 10px 0;
+}
+.classic-dialog a {
+  color: #337ab7;
+}
+.classic-dialog .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.classic-dialog .col-md-6 {
+  flex: 1 1 calc(50% - 15px);
+  min-width: 0;
+}
+.classic-dialog .col-xs-5 {
+  flex: 0 0 39%;
+  min-width: 0;
+}
+.classic-dialog .col-xs-7 {
+  flex: 1;
+  min-width: 0;
+}
+.classic-dialog .col-md-12 {
+  width: 100%;
+}
+.classic-dialog .modal-footer {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 15px;
+  padding-top: 15px;
+  text-align: right;
+}
+.classic-dialog .modal-body {
+  overflow-wrap: anywhere;
+}
+.classic-dialog .pull-left {
+  float: left;
+  margin-right: 6px;
+}
+.classic-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.classic-form input,
+.classic-form textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid #ff0;
+  border-radius: 0;
+  padding: 6px 12px;
+  background: #fffc;
+  color: black;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.classic-form textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+.contacto-enviar {
+  text-align: right;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+.contacto-enviar button {
+  color: #333;
+  border-color: #999900;
+}
+@media (max-width: 1199px) {
+  .classic-container {
+    width: 970px;
+  }
+  .header-inner {
+    gap: 12px;
+  }
+  .site-header nav a {
+    font-size: 12px;
+    padding-inline: 7px;
+  }
+  .site-header .wordmark {
+    font-size: 21px;
+  }
+  .logo-nav-clasico {
+    width: 65px;
+  }
+  .classic-tarjetas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 991px) {
+  .classic-container {
+    width: 750px;
+  }
+  .site-header .header-inner {
+    flex-wrap: wrap;
+  }
+  .site-header .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+  .site-header nav {
+    display: flex;
+    position: static;
+    width: 100%;
+    flex-wrap: wrap;
+    background: rgb(50 50 50 / 85%);
+    padding: 10px;
+  }
+  .con-js .site-header nav {
+    display: none;
+  }
+  .con-js .site-header nav.abierto {
+    display: flex;
+  }
+  .site-header nav a {
+    line-height: 30px;
+    font-size: 14px;
+  }
+  .classic-pilares {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .classic-paises {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .classic-paises img {
+    left: auto;
+    right: 0;
+  }
+  .classic-paises p {
+    padding-right: 110px;
+  }
+  .classic-logo-ruta {
+    height: 110px;
+  }
+  .classic-logo-ruta .logo-animado {
+    width: 150px;
+  }
+  .classic-contacto-grid {
+    grid-template-columns: 1fr;
+  }
+  .donaciones-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .classic-container {
+    width: auto;
+    max-width: 100%;
+  }
+  .site-header {
+    padding-block: 10px;
+  }
+  .site-header .header-inner {
+    min-height: 55px;
+  }
+  .site-header .wordmark {
+    font-size: 24px;
+  }
+  .logo-nav-clasico {
+    width: 60px;
+  }
+  .site-header nav {
+    flex-direction: column;
+    align-items: stretch;
+    max-height: calc(100svh - 80px);
+    overflow-y: auto;
+  }
+  .site-header nav a {
+    padding-block: 5px;
+  }
+  .classic-section {
+    padding-block: 45px;
+  }
+  .classic-banner {
+    padding-top: 140px;
+  }
+  .classic-banner h1 {
+    font-size: 35px;
+  }
+  .classic-hero,
+  .hero-sombra {
+    min-height: 650px;
+  }
+  .classic .classic-title {
+    font-size: 28px;
+  }
+  .classic-pilares {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .perfiles-slider {
+    padding-top: 40px;
+    padding-bottom: 100px;
+  }
+  .perfiles-slides {
+    min-height: 340px;
+  }
+  .perfil-slide {
+    padding: 15px 30px 0;
+  }
+  .perfil-imagen {
+    margin-bottom: 25px;
+  }
+  .perfil-slide blockquote {
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .perfil-slide blockquote::before {
+    left: -25px;
+  }
+  .perfil-slide blockquote::after {
+    right: -25px;
+  }
+  .perfil-nombre {
+    font-size: 14px;
+  }
+  .perfil-anterior,
+  .perfil-siguiente {
+    bottom: 30px;
+  }
+  .perfiles-puntos {
+    bottom: 35px;
+  }
+  .classic-tarjetas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .instagram-grid {
+    grid-template-columns: 1fr;
+  }
+  .classic-subtitle {
+    font-size: 18px;
+  }
+  .classic-dialog .col-md-6 {
+    flex-basis: 100%;
+  }
+  .classic-dialog .col-xs-5,
+  .classic-dialog .col-xs-7 {
+    flex: 1 1 100%;
+  }
+  .classic-dialog .col-xs-5 img {
+    max-height: 250px;
+    margin: auto;
+  }
+}
+@media (max-width: 359px) {
+  .logo-nav-clasico {
+    width: 45px;
+  }
+  .header-inner {
+    gap: 5px;
+  }
+  .patro-reverso {
+    padding: 8px 22px 7px 21px;
+  }
+  .patro-reverso h3 {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  .patro-reverso .patro-actividad {
+    font-size: 11.5px;
+    margin-bottom: 5px;
+  }
+  .patro-reverso .patro-enlace {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+  .patro-enlace i {
+    font-size: 13px;
+  }
+  .patro-reverso .patro-gracias {
+    font-size: 11px;
+  }
+  .patro-volver {
+    font-size: 17px;
+  }
+  .perfil-slide {
+    padding-inline: 25px;
+  }
+  .perfiles-slides {
+    min-height: 370px;
+  }
+}
+@media (max-width: 450px) {
+  .site-header .wordmark {
+    font-size: 14px;
+  }
+  .classic-banner {
+    padding-top: 40px;
+  }
+  .classic-banner h1 {
+    font-size: 33px;
+    text-shadow: 2px 2px 1px #ff0;
+  }
+  .classic {
+    font-size: 14px;
+  }
+  .classic-pilares h3 {
+    font-size: 18px;
+  }
+  .classic .classic-subtitle {
+    font-size: 15px;
+  }
+  .perfil-slide blockquote {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .classic-ciclistas {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 15px;
+  }
+  .classic-ciclistas img {
+    position: static;
+    opacity: 1;
+  }
+  .classic-ciclistas img:nth-child(n + 5) {
+    display: none;
+  }
+}

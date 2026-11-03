@@ -37,7 +37,6 @@ const [etapas, fotos] = await Promise.all([
   </section>
   <section class="section">
     <div class="wrap viaje-intro">
-      <span class="eyebrow">LA HISTORIA DEL VIAJE</span>
       <p class="lead preserve-lines">{viaje.descripcion}</p>
       {viaje.estado === "planificado" && (
         <p class="notice">
@@ -54,8 +53,7 @@ const [etapas, fotos] = await Promise.all([
     <div class="wrap">
       <div class="section-heading">
         <div>
-          <span class="eyebrow">PASO A PASO, A PEDAL</span>
-          <h2>Las etapas.</h2>
+          <h2>Etapas</h2>
         </div>
       </div>
       <ol class="etapas-lista">
@@ -86,8 +84,7 @@ const [etapas, fotos] = await Promise.all([
   </section>
   <section id="fotos" class="section galeria-section">
     <div class="wrap">
-      <span class="eyebrow">EL ÁLBUM DEL VIAJE</span>
-      <h2>Momentos para recordar.</h2>
+      <h2>Fotografías</h2>
       <Gallery fotos={fotos} />
     </div>
   </section>
