@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { entorno as env } from "../../server/env";
 import { json, responderError } from "../../lib/http";
+import { mapasPersonales } from "../../lib/maps";
 import {
   ciudadPublica,
   viajePublico,
@@ -18,11 +19,9 @@ export const GET: APIRoute = async ({ url }) => {
       ciudadPublica(env),
     ]);
     return json({
-      proveedor: env.PROVEEDOR_MAPA === "google" ? "google" : "geoapify",
-      google:
-        env.PROVEEDOR_MAPA === "google" && env.GOOGLE_MAPS_API_KEY
-          ? { clave: env.GOOGLE_MAPS_API_KEY }
-          : null,
+      proveedor: "google_mymaps",
+      mapas: mapasPersonales,
+      sincronizacion_automatica: false,
       ciudad,
       fotos,
       etapas: etapas.map((e) => ({
@@ -30,7 +29,6 @@ export const GET: APIRoute = async ({ url }) => {
         titulo: e.titulo,
         ruta: e.ruta_json ? JSON.parse(e.ruta_json) : null,
       })),
-      teselas: env.GEOAPIFY_API_KEY ? "/api/teselas/{z}/{x}/{y}.png" : null,
     });
   } catch (e) {
     return responderError(e);

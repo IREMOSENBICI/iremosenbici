@@ -642,6 +642,11 @@ svg {
   height: 450px;
   z-index: 1;
 }
+.map-google-personal {
+  display: block;
+  width: 100%;
+  border: 0;
+}
 .map-status {
   font-size: 0.85rem;
   margin: 0;

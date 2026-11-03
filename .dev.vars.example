@@ -1,9 +1,5 @@
 PERMITIR_ADMIN_LOCAL=false
 ACCESS_TEAM_DOMAIN=
 ACCESS_AUD=
-GEOAPIFY_API_KEY=
-PROVEEDOR_MAPA=geoapify
-# Preparado para una futura activación explícita; clave web restringida por dominio y API.
-GOOGLE_MAPS_API_KEY=
 RESEND_API_KEY=
 SECRETO_SITIO=

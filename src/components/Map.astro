@@ -1,44 +1,27 @@
 ---
+import { mapasPersonales } from "../lib/maps";
 interface Props {
-  viaje?: string;
   compacto?: boolean;
-  automatico?: boolean;
 }
-const { viaje = "", compacto = false, automatico = false } = Astro.props;
+const { compacto = false } = Astro.props;
+const mapa = compacto ? mapasPersonales.ubicacion : mapasPersonales.recorrido;
+const titulo = compacto ? "Mapa de ubicación" : "Mapa de rutas y fotografías";
 ---
 
-<section
-  class="map-widget map-shell"
-  data-viaje={viaje}
-  data-modo={compacto ? "ubicacion" : "recorrido"}
-  data-automatico={automatico ? "true" : undefined}
-  aria-label={compacto ? "Mapa de ubicación" : "Mapa de rutas y fotografías"}
->
-  <div class="map-invitacion map-intro" hidden={automatico}>
-    <button class="btn btn-dark abrir-mapa" type="button">
-      Abrir mapa <span aria-hidden="true">↗</span>
-    </button>
-    {!compacto && (
-      <button type="button" class="centrar-mapa" hidden>
+<section class="map-widget map-shell" aria-label={titulo}>
+  {!compacto && (
+    <div class="map-invitacion map-intro">
+      <a class="centrar-mapa" href={mapa.ver} target="_blank" rel="noopener">
         Ver Ruta
-      </button>
-    )}
-  </div>
-  <div
-    class="map-canvas"
-    hidden={!automatico}
-    aria-label={
-      compacto
-        ? "Mapa interactivo de ubicación"
-        : "Mapa interactivo de rutas y fotografías"
-    }
-  ></div>
-  <p class="map-status" role="status"></p>
-  <noscript>
-    <p>Activa JavaScript para explorar el mapa.</p>
-  </noscript>
+      </a>
+    </div>
+  )}
+  <iframe
+    class="map-canvas map-google-personal"
+    src={mapa.insertar}
+    title={titulo}
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
 </section>
-<script>
-  import { iniciarMapas } from "../scripts/maps";
-  iniciarMapas();
-</script>

@@ -12,11 +12,7 @@ export function RoutePreview({ ruta }: { ruta: RutaSegura | null }) {
     void import("leaflet").then((L) => {
       if (!vivo || !contenedor.current) return;
       mapa = L.map(contenedor.current, { scrollWheelZoom: false });
-      L.tileLayer("/api/teselas/{z}/{x}/{y}.png", {
-        maxZoom: 18,
-        attribution:
-          '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · <a href="https://www.geoapify.com/">Geoapify</a>',
-      }).addTo(mapa);
+      // Previsualización geométrica local. La cartografía se gestiona en My Maps.
       const capa = L.geoJSON(ruta, {
         style: { color: "#9a4d00", weight: 4 },
       }).addTo(mapa);
@@ -132,9 +128,9 @@ export default function RouteEditor({
       {base && (
         <>
           <p className="admin-help">
-            La vista previa muestra exactamente las líneas que se guardarán. Si
-            falla el fondo cartográfico, las líneas siguen visibles. Verde:
-            inicio; rojo: final.
+            Vista previa de las líneas, sin fondo cartográfico. Verde: inicio;
+            rojo: final. Para mostrarlas en el mapa público, importa el archivo
+            también en Google My Maps.
           </p>
           {recortes.map((r, i) => (
             <div className="segment-editor" key={i}>
