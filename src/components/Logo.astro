@@ -1,0 +1,40 @@
+---
+interface Props {
+  clase?: string;
+  etiqueta?: string;
+}
+const {
+  clase = "",
+  etiqueta = "Logo de Iremosenbici: una bicicleta en movimiento",
+} = Astro.props;
+---
+
+<span
+  class:list={["logo-animado", clase]}
+  role="img"
+  aria-label={etiqueta}
+  data-animacion
+>
+  <img
+    src="/img-logo/rueda-t.png"
+    class="pieza rueda trasera"
+    alt=""
+    width="200"
+    height="200"
+  />
+  <img
+    src="/img-logo/rueda-d.png"
+    class="pieza rueda delantera"
+    alt=""
+    width="200"
+    height="200"
+  />
+  <img src="/img-logo/marco-logo.png" class="pieza marco" alt="" />
+  <img src="/img-logo/fondo-pedal-atras.png" class="pieza fondo-pedal" alt="" />
+  <img src="/img-logo/pedal-atras.png" class="pieza pedal pedal-atras" alt="" />
+  <img
+    src="/img-logo/pedal-frente.png"
+    class="pieza pedal pedal-frente"
+    alt=""
+  />
+</span>

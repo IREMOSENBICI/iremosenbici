@@ -1,0 +1,114 @@
+---
+import { sitio } from "../data/site";
+---
+
+<section id="contact" class="section contacto">
+  <div class="wrap contacto-grid">
+    <div>
+      <span class="eyebrow">LAS MEJORES HISTORIAS EMPIEZAN CON UN HOLA</span>
+      <h2>
+        Hablemos
+        <br />
+        del camino.
+      </h2>
+      <p>
+        ¿Una idea, un lugar por descubrir o una forma de colaborar? Me encantará
+        leerte.
+      </p>
+      <a class="contact-email" href={`mailto:${sitio.correo}`}>
+        {sitio.correo}
+      </a>
+      <div class="social-links">
+        <a href={sitio.instagram} target="_blank" rel="noopener noreferrer">
+          Instagram ↗
+        </a>
+        <a href={sitio.facebook} target="_blank" rel="noopener noreferrer">
+          Facebook ↗
+        </a>
+      </div>
+    </div>
+    <form id="formulario-contacto" action="/api/contacto" method="post">
+      <div class="form-two">
+        <label>
+          Tu nombre
+          <input name="nombre" autocomplete="name" maxlength="100" required />
+        </label>
+        <label>
+          Tu correo
+          <input
+            name="email"
+            type="email"
+            autocomplete="email"
+            maxlength="200"
+            required
+          />
+        </label>
+      </div>
+      <label>
+        Asunto
+        <input name="asunto" maxlength="160" required />
+      </label>
+      <label>
+        Tu mensaje
+        <textarea name="mensaje" rows="5" maxlength="5000" required></textarea>
+      </label>
+      <div class="trampa" aria-hidden="true">
+        <label>
+          Empresa
+          <input name="empresa" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
+      <p class="form-note">
+        Usaré tus datos únicamente para responderte.{" "}
+        <a href="/privacidad">Sobre tu privacidad</a>.
+      </p>
+      <button class="btn btn-dark" type="submit">
+        Enviar mensaje <span aria-hidden="true">↗</span>
+      </button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <noscript>
+        <p>
+          Para escribir sin JavaScript, envía un correo a{" "}
+          <a href={`mailto:${sitio.correo}`}>{sitio.correo}</a>.
+        </p>
+      </noscript>
+    </form>
+  </div>
+</section>
+<script>
+  const form = document.querySelector<HTMLFormElement>("#formulario-contacto");
+  if (form) {
+    let solicitud = crypto.randomUUID();
+    form.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      if (!form.reportValidity()) return;
+      const boton = form.querySelector<HTMLButtonElement>(
+        "button[type=submit]",
+      )!;
+      const status = form.querySelector<HTMLElement>(".form-status")!;
+      boton.disabled = true;
+      status.textContent = "Enviando tu mensaje…";
+      try {
+        const datos = Object.fromEntries(new FormData(form));
+        const response = await fetch("/api/contacto", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...datos, solicitud }),
+        });
+        const resultado = (await response.json()) as {
+          error?: string;
+          mensaje: string;
+        };
+        if (!response.ok)
+          throw new Error(resultado.error || "No se pudo enviar el mensaje.");
+        status.textContent = resultado.mensaje;
+        form.reset();
+        solicitud = crypto.randomUUID();
+      } catch (error) {
+        status.textContent = (error as Error).message;
+      } finally {
+        boton.disabled = false;
+      }
+    });
+  }
+</script>

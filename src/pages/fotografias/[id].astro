@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Panorama from "../../components/Panorama.astro";
+import { entorno } from "../../server/env";
+import { FOTO_PUBLICA } from "../../server/data";
+import type { Foto } from "../../lib/types";
+const foto = await entorno.DATOS.prepare(
+  `SELECT f.id,f.titulo,f.alternativa,f.pie,f.tipo,f.norte_grados FROM fotos f WHERE f.id=? AND ${FOTO_PUBLICA}`,
+)
+  .bind(Astro.params.id || "")
+  .first<Foto>();
+if (!foto) return Astro.rewrite("/404");
+---
+
+<Layout titulo={foto.titulo} descripcion={foto.pie || foto.alternativa}>
+  <section class="section">
+    <div class="wrap">
+      <a class="text-link" href="/#galeria">
+        ← Volver a la galería
+      </a>
+      <div class="foto-heading">
+        <span class="eyebrow">
+          {foto.tipo === "panorama_360"
+            ? "UNA MIRADA EN 360°"
+            : "POSTALES DEL CAMINO"}
+        </span>
+        <h1>{foto.titulo}</h1>
+        <p>{foto.pie}</p>
+      </div>
+      {foto.tipo === "panorama_360" ? (
+        <Panorama
+          id={foto.id}
+          titulo={foto.titulo}
+          alternativa={foto.alternativa}
+          norte={foto.norte_grados}
+        />
+      ) : (
+        <img
+          class="foto-completa"
+          src={`/media/${foto.id}`}
+          alt={foto.alternativa}
+        />
+      )}
+    </div>
+  </section>
+</Layout>

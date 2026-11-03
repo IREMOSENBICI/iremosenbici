@@ -1,0 +1,41 @@
+---
+interface Props {
+  viaje?: string;
+}
+const { viaje = "" } = Astro.props;
+---
+
+<section
+  class="map-widget map-shell"
+  data-viaje={viaje}
+  aria-label="Mapa del viaje"
+>
+  <div class="map-invitacion map-intro">
+    <div>
+      <span class="eyebrow">CADA CIUDAD, UNA HISTORIA</span>
+      <h3>El viaje, en el mapa</h3>
+      <p>
+        Explora ciudades y etapas. La ubicación compartida representa una
+        ciudad, nunca una posición en vivo.
+      </p>
+    </div>
+    <button class="btn btn-dark abrir-mapa" type="button">
+      Abrir mapa <span aria-hidden="true">↗</span>
+    </button>
+  </div>
+  <div
+    class="map-canvas"
+    hidden
+    aria-label="Mapa interactivo de ciudades y recorridos"
+  ></div>
+  <p class="map-status" role="status"></p>
+  <noscript>
+    <p>
+      Las ciudades y etapas se pueden consultar en las fichas de esta página.
+    </p>
+  </noscript>
+</section>
+<script>
+  import { iniciarMapas } from "../scripts/maps";
+  iniciarMapas();
+</script>

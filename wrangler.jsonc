@@ -1,0 +1,78 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "iremosenbici-pruebas",
+  "compatibility_date": "2026-11-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "pruebas.iremosenbici.com", "custom_domain": true }],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.1,
+  },
+  "vars": {
+    "ENTORNO": "pruebas",
+    "ORIGEN_SITIO": "https://pruebas.iremosenbici.com",
+    "CORREO_ADMIN": "iremosenbici@gmail.com",
+    "CORREO_DESTINO": "iremosenbici@gmail.com",
+    "CORREO_REMITENTE": "Iremosenbici <web@notificaciones.iremosenbici.com>",
+    "ACCESS_TEAM_DOMAIN": "winter-math-f96d.cloudflareaccess.com",
+    "ACCESS_AUD": "c4e78e9094a12072dc0ff7de29a8e0f2e7aa5041868b23bfd5c3e40a2a7df8fd",
+  },
+  "d1_databases": [
+    {
+      "binding": "DATOS",
+      "database_name": "iremosenbici-pruebas",
+      "database_id": "8c6489e3-03d3-4a73-97b8-054fadfca409",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FOTOS",
+      "bucket_name": "iremosenbici-fotos-pruebas",
+    },
+  ],
+  "images": {
+    "binding": "IMAGENES",
+  },
+  "env": {
+    "produccion": {
+      "name": "iremosenbici",
+      "workers_dev": false,
+      "preview_urls": false,
+      "routes": [{ "pattern": "www.iremosenbici.com/*", "zone_name": "iremosenbici.com" }],
+      "vars": {
+        "ENTORNO": "produccion",
+        "ORIGEN_SITIO": "https://www.iremosenbici.com",
+        "CORREO_ADMIN": "iremosenbici@gmail.com",
+        "CORREO_DESTINO": "iremosenbici@gmail.com",
+        "CORREO_REMITENTE": "Iremosenbici <web@notificaciones.iremosenbici.com>",
+        "ACCESS_TEAM_DOMAIN": "winter-math-f96d.cloudflareaccess.com",
+        "ACCESS_AUD": "c4e78e9094a12072dc0ff7de29a8e0f2e7aa5041868b23bfd5c3e40a2a7df8fd",
+      },
+      "d1_databases": [
+        {
+          "binding": "DATOS",
+          "database_name": "iremosenbici",
+          "database_id": "84327101-7b3c-4c9c-8b4e-c1c78eafcbc7",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "r2_buckets": [
+        {
+          "binding": "FOTOS",
+          "bucket_name": "iremosenbici-fotos",
+        },
+      ],
+      "images": {
+        "binding": "IMAGENES",
+      },
+    },
+  },
+  "account_id": "1a9b246cafcf45c527a8061e7a3590ad",
+}

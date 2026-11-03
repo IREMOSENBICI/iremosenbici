@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Admin from "../components/admin/Admin";
+---
+
+<Layout titulo="Mi panel" privada>
+  <Admin client:only="react" />
+  <noscript>
+    <div class="wrap section">
+      <h1>Mi panel</h1>
+      <p>
+        Activa JavaScript para editar el contenido. La web pública puede leerse
+        sin JavaScript.
+      </p>
+    </div>
+  </noscript>
+</Layout>

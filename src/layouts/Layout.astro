@@ -1,0 +1,130 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Logo from "../components/Logo.astro";
+interface Props {
+  titulo?: string;
+  descripcion?: string;
+  privada?: boolean;
+  portada?: boolean;
+}
+const {
+  titulo = "Experimenta la libertad",
+  descripcion = "Una comunidad de cicloturistas. Viajes, fotografías y caminos por descubrir en bicicleta.",
+  privada = false,
+  portada = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, "https://www.iremosenbici.com")
+  .href;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo} · Iremosenbici</title>
+    <meta name="description" content={descripcion} />
+    <meta name="theme-color" content="#171d19" />
+    <link rel="icon" href="/ico/favicon-iremosenbici.ico" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`${titulo} · Iremosenbici`} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta
+      property="og:image"
+      content="https://www.iremosenbici.com/img/cicloturismo-portada-1080.jpg"
+    />
+    {privada && <meta name="robots" content="noindex,nofollow" />}
+    {portada && (
+      <link
+        rel="preload"
+        as="image"
+        href="/img/cicloturismo-portada-1080.jpg"
+      />
+    )}
+  </head>
+  <body>
+    <a href="#contenido" class="skip-link">
+      Ir al contenido
+    </a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/" aria-label="Iremosenbici, inicio">
+          <span class="wordmark">
+            <span>IREMOS</span>ENBICI
+          </span>
+          <Logo clase="logo-nav" />
+        </a>
+        <button
+          class="menu-toggle"
+          aria-expanded="false"
+          aria-controls="menu-principal"
+        >
+          Menú <span aria-hidden="true">☰</span>
+        </button>
+        <nav id="menu-principal" aria-label="Navegación principal">
+          <a href="/#quienes">El proyecto</a>
+          <a href="/#rutas">Viajes</a>
+          <a href="/#galeria">Galería</a>
+          <a href="/#patrocinantes">Compañeros</a>
+          <a href="/#contact">Contacto</a>
+          <a class="nav-apoyo" href="/#donaciones">
+            Apoya el viaje ↗
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main id="contenido">
+      <slot />
+    </main>
+    {!privada && <Footer />}
+    <script>
+      const boton = document.querySelector<HTMLButtonElement>(".menu-toggle");
+      const menu = document.querySelector<HTMLElement>("#menu-principal");
+      if (boton && menu) {
+        document.documentElement.classList.add("con-js");
+        boton.addEventListener("click", () => {
+          const abierto = boton.getAttribute("aria-expanded") !== "true";
+          boton.setAttribute("aria-expanded", String(abierto));
+          menu.classList.toggle("abierto", abierto);
+        });
+        menu.querySelectorAll("a").forEach((a) =>
+          a.addEventListener("click", () => {
+            boton.setAttribute("aria-expanded", "false");
+            menu.classList.remove("abierto");
+          }),
+        );
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            boton.setAttribute("aria-expanded", "false");
+            menu.classList.remove("abierto");
+          }
+        });
+      }
+      const animaciones =
+        document.querySelectorAll<HTMLElement>("[data-animacion]");
+      const observer = new IntersectionObserver((es) =>
+        es.forEach((e) => {
+          (e.target as HTMLElement).dataset.visible = String(e.isIntersecting);
+          (e.target as HTMLElement).style.setProperty(
+            "--animacion",
+            e.isIntersecting && !document.hidden ? "running" : "paused",
+          );
+        }),
+      );
+      animaciones.forEach((a) => observer.observe(a));
+      document.addEventListener("visibilitychange", () =>
+        animaciones.forEach((a) =>
+          a.style.setProperty(
+            "--animacion",
+            !document.hidden && a.dataset.visible === "true"
+              ? "running"
+              : "paused",
+          ),
+        ),
+      );
+    </script>
+  </body>
+</html>

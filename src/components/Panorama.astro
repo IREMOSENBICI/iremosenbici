@@ -1,0 +1,192 @@
+---
+interface Props {
+  id: string;
+  titulo: string;
+  alternativa: string;
+  norte: number | null;
+}
+const { id, titulo, alternativa, norte } = Astro.props;
+---
+
+<section
+  class="panorama"
+  data-id={id}
+  data-norte={norte ?? ""}
+  aria-label={`Fotografía 360: ${titulo}`}
+>
+  <div class="panorama-placeholder">
+    <img
+      src={`/media/${id}?mini=1`}
+      alt={alternativa}
+      width="640"
+      height="320"
+    />
+    <button class="btn btn-yellow abrir-panorama" type="button">
+      Explorar en 360° ↗
+    </button>
+  </div>
+  <div class="panorama-canvas" hidden></div>
+  <div class="sensor-controls" hidden>
+    <button
+      class="btn btn-outline activar-sensores"
+      type="button"
+      aria-pressed="false"
+    >
+      Mirar moviendo el dispositivo
+    </button>
+    {norte !== null && (
+      <button class="btn btn-outline alinear-norte" type="button" disabled>
+        Alinear mirando al norte
+      </button>
+    )}
+  </div>
+  <p class="panorama-status" role="status"></p>
+  <p class="admin-help">
+    Arrastra con dos dedos para mirar alrededor; en pantalla completa también
+    puedes usar las flechas del teclado. Los sensores se activan solo si lo
+    decides, sin solicitar GPS.{" "}
+    {norte !== null
+      ? "La orientación de brújula es aproximada y puede necesitar alineación manual."
+      : "Esta foto aún no tiene el norte calibrado; el movimiento será relativo."}{" "}
+    <a href={`/media/${id}`} target="_blank" rel="noopener">
+      Abrir imagen plana
+    </a>
+    .
+  </p>
+</section>
+<script>
+  import "@photo-sphere-viewer/core/index.css";
+  document.querySelectorAll<HTMLElement>(".panorama").forEach((elemento) => {
+    const boton = elemento.querySelector<HTMLButtonElement>(".abrir-panorama")!;
+    const contenedor = elemento.querySelector<HTMLElement>(".panorama-canvas")!;
+    const estado = elemento.querySelector<HTMLElement>(".panorama-status")!;
+    boton.addEventListener("click", async () => {
+      boton.disabled = true;
+      estado.textContent = "Abriendo la fotografía 360…";
+      try {
+        const [{ Viewer }, { GyroscopePlugin }] = await Promise.all([
+          import("@photo-sphere-viewer/core"),
+          import("@photo-sphere-viewer/gyroscope-plugin"),
+        ]);
+        contenedor.hidden = false;
+        const norte = elemento.dataset.norte
+          ? Number(elemento.dataset.norte)
+          : 0;
+        const calibrada = elemento.dataset.norte !== "";
+        const visor = new Viewer({
+          container: contenedor,
+          panorama: `/media/${elemento.dataset.id}`,
+          navbar: ["zoom", "move", "fullscreen"],
+          mousewheelCtrlKey: true,
+          touchmoveTwoFingers: true,
+          keyboard: "fullscreen",
+          sphereCorrection: { pan: `${norte}deg` },
+          moveInertia: !matchMedia("(prefers-reduced-motion: reduce)").matches,
+          plugins: [
+            [
+              GyroscopePlugin,
+              { absolutePosition: calibrada, touchmove: false },
+            ],
+          ],
+          lang: {
+            zoom: "Acercar o alejar",
+            zoomOut: "Alejar",
+            zoomIn: "Acercar",
+            move: "Mover la vista",
+            moveUp: "Mirar arriba",
+            moveDown: "Mirar abajo",
+            moveLeft: "Mirar a la izquierda",
+            moveRight: "Mirar a la derecha",
+            fullscreen: "Pantalla completa",
+            twoFingers: "Usa dos dedos para mover la vista",
+            ctrlZoom: "Mantén Ctrl para acercar o alejar",
+            loadError: "No se pudo abrir la imagen 360.",
+            loading: "Cargando fotografía…",
+            webglError: "El visor 360 no está disponible en este dispositivo.",
+            menu: "Más controles",
+            close: "Cerrar",
+          },
+        });
+        const sensores =
+          visor.getPlugin<
+            import("@photo-sphere-viewer/gyroscope-plugin").GyroscopePlugin
+          >(GyroscopePlugin)!;
+        const activar =
+          elemento.querySelector<HTMLButtonElement>(".activar-sensores")!;
+        const alinear =
+          elemento.querySelector<HTMLButtonElement>(".alinear-norte");
+        const actualizar = () => {
+          const activo = sensores.isEnabled();
+          activar.setAttribute("aria-pressed", String(activo));
+          activar.textContent = activo
+            ? "Desactivar movimiento"
+            : "Mirar moviendo el dispositivo";
+          if (alinear) alinear.disabled = !activo;
+        };
+        activar.addEventListener("click", async () => {
+          try {
+            if (sensores.isEnabled()) {
+              sensores.stop();
+              estado.textContent =
+                "Movimiento desactivado. Puedes arrastrar la imagen.";
+            } else {
+              await sensores.start();
+              estado.textContent = calibrada
+                ? "Movimiento activado. Si la brújula no coincide, mira hacia el norte y pulsa «Alinear mirando al norte»."
+                : "Movimiento activado. La vista sigue el dispositivo, sin orientación geográfica calibrada.";
+            }
+            actualizar();
+          } catch {
+            estado.textContent =
+              "No se pudo activar el movimiento. Revisa el permiso de sensores o arrastra la imagen con los dedos.";
+            actualizar();
+          }
+        });
+        alinear?.addEventListener("click", () => {
+          visor.setOption("sphereCorrection", {
+            pan: (norte * Math.PI) / 180 - visor.getPosition().yaw,
+          });
+          estado.textContent =
+            "Vista alineada con la dirección que has señalado como norte. La precisión depende del dispositivo.";
+        });
+        const pausar = () => {
+          if (document.hidden) {
+            sensores.stop();
+            actualizar();
+          }
+        };
+        document.addEventListener("visibilitychange", pausar);
+        visor.addEventListener(
+          "ready",
+          () => {
+            elemento.querySelector<HTMLElement>(
+              ".panorama-placeholder",
+            )!.hidden = true;
+            elemento.querySelector<HTMLElement>(".sensor-controls")!.hidden =
+              false;
+            estado.textContent =
+              "Fotografía 360 lista. Tú eliges hacia dónde mirar.";
+          },
+          { once: true },
+        );
+        visor.addEventListener(
+          "panorama-error",
+          () => {
+            estado.textContent =
+              "No se pudo abrir el visor. Puedes consultar la imagen plana.";
+            boton.disabled = false;
+            contenedor.hidden = true;
+            document.removeEventListener("visibilitychange", pausar);
+            visor.destroy();
+          },
+          { once: true },
+        );
+      } catch {
+        contenedor.hidden = true;
+        estado.textContent =
+          "Este dispositivo no pudo abrir el visor. Puedes consultar la imagen plana.";
+        boton.disabled = false;
+      }
+    });
+  });
+</script>
