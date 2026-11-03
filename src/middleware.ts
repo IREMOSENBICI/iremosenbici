@@ -66,17 +66,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     "geolocation=(),camera=(),microphone=(),accelerometer=(self),gyroscope=(self),magnetometer=(self)",
   );
   response.headers.set("X-Frame-Options", "DENY");
-  const google =
-    entorno.PROVEEDOR_MAPA === "google" && !!entorno.GOOGLE_MAPS_API_KEY;
-  const scriptsMapa = google
-    ? " https://maps.googleapis.com https://maps.gstatic.com"
-    : "";
-  const recursosMapa = google
-    ? " https://*.googleapis.com https://*.gstatic.com https://*.google.com https://*.googleusercontent.com"
-    : "";
   response.headers.set(
     "Content-Security-Policy",
-    `default-src 'self'; script-src 'self' 'unsafe-inline'${scriptsMapa}; style-src 'self' 'unsafe-inline'${google ? " https://fonts.googleapis.com" : ""}; img-src 'self' data: blob: https://maps.geoapify.com${recursosMapa}; connect-src 'self' https://maps.geoapify.com${recursosMapa}; font-src 'self'${google ? " https://fonts.gstatic.com" : ""}; frame-src https://www.instagram.com https://snapwidget.com${google ? " https://*.google.com" : ""}; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`,
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; font-src 'self'; frame-src https://www.instagram.com https://snapwidget.com https://www.google.com; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
   );
   response.headers.set("Cache-Control", "no-store");
   if (privado || entorno.ENTORNO !== "produccion")

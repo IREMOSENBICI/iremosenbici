@@ -21,10 +21,7 @@ export const GET: APIRoute = async () => {
       ubicacion,
       borradores: borradores.results,
       servicios: {
-        mapas:
-          env.PROVEEDOR_MAPA === "google"
-            ? !!env.GOOGLE_MAPS_API_KEY
-            : !!env.GEOAPIFY_API_KEY,
+        mapas: true,
         correo: !!env.RESEND_API_KEY,
         fotos: !!env.IMAGENES,
       },

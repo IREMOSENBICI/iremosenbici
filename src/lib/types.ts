@@ -59,9 +59,6 @@ export interface Entorno {
   CORREO_REMITENTE: string;
   ACCESS_TEAM_DOMAIN?: string;
   ACCESS_AUD?: string;
-  GEOAPIFY_API_KEY?: string;
-  PROVEEDOR_MAPA?: "geoapify" | "google";
-  GOOGLE_MAPS_API_KEY?: string;
   RESEND_API_KEY?: string;
   SECRETO_SITIO?: string;
   PERMITIR_ADMIN_LOCAL?: string;
@@ -73,14 +70,6 @@ export type FotoMapa = Pick<
   latitud: number;
   longitud: number;
 };
-export interface DatosMapa {
-  proveedor: "geoapify" | "google";
-  google: { clave: string } | null;
-  teselas: string | null;
-  ciudad: CiudadPublica | null;
-  etapas: { id: string; titulo: string; ruta: RutaSegura }[];
-  fotos: FotoMapa[];
-}
 export interface RutaSegura {
   type: "FeatureCollection";
   features: {

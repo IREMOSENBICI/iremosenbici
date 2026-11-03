@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { SubmitEvent, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type {
   Viaje,
   Etapa,
@@ -8,6 +8,7 @@ import type {
   RutaSegura,
   Visibilidad,
 } from "../../lib/types";
+import { mapasPersonales } from "../../lib/maps";
 import RouteEditor from "./RouteEditor";
 import PanoramaCalibration from "./PanoramaCalibration";
 type Contenido = {
@@ -20,12 +21,6 @@ type Contenido = {
 };
 type Mensaje = { texto: string; error?: boolean };
 type Resultado = { mensaje: string; id?: string };
-type OpcionCiudad = {
-  ciudad: string;
-  pais: string;
-  region: string;
-  token: string;
-};
 async function api<T = Resultado>(
   url: string,
   datos?: unknown,
@@ -163,8 +158,8 @@ export default function Admin() {
           <span className="eyebrow">IREMOSENBICI · MI ESPACIO</span>
           <h1>Tu próxima historia.</h1>
           <p>
-            Publica cuando tú decidas. Tu ciudad es una actualización manual;
-            esta web no recoge tu GPS.
+            Publica cuando tú decidas. Los mapas se actualizan en Google My
+            Maps.
           </p>
         </div>
         <a href="/" className="text-link" target="_blank" rel="noopener">
@@ -173,7 +168,7 @@ export default function Admin() {
       </div>
       <nav className="admin-tabs" aria-label="Secciones del panel">
         {[
-          ["ciudad", "Mi ciudad"],
+          ["ciudad", "Mis mapas"],
           ["viajes", "Viajes"],
           ["etapas", "Etapas y rutas"],
           ["fotos", "Fotografías"],
@@ -203,9 +198,7 @@ export default function Admin() {
       )}
       {contenido && (
         <>
-          {pestana === "ciudad" && (
-            <Ciudad contenido={contenido} ejecutar={ejecutar} {...props} />
-          )}
+          {pestana === "ciudad" && <MapasPersonales />}
           {pestana === "viajes" && (
             <div className="admin-grid">
               <aside className="admin-list" aria-label="Viajes">
@@ -715,8 +708,9 @@ function FotoEditor({
         <h3>Ubicación en MAPA-RUTA</h3>
         <p className="admin-help">
           Las coordenadas se leen del archivo cuando están disponibles. Puedes
-          corregirlas o introducirlas manualmente. Al publicar la foto con ambas
-          coordenadas aparecerá en el mapa; sin coordenadas, solo en la galería.
+          corregirlas o introducirlas manualmente. La publicación aparece en la
+          galería. Para situarla en el mapa, añade un marcador en Google My Maps
+          y enlaza la página de la fotografía. No hay sincronización automática.
         </p>
         <div className="form-two">
           <Campo titulo="Latitud">
@@ -768,133 +762,43 @@ function FotoEditor({
     </form>
   );
 }
-function Ciudad({
-  contenido,
-  ejecutar,
-  ocupado,
-  onDirty,
-}: {
-  contenido: Contenido;
-  ejecutar: (fn: () => Promise<any>) => Promise<boolean>;
-  ocupado: boolean;
-  onDirty: () => void;
-}) {
-  const [busqueda, setBusqueda] = useState("");
-  const [opciones, setOpciones] = useState<
-    { ciudad: string; pais: string; region: string; token: string }[]
-  >([]);
-  const [token, setToken] = useState("");
-  const [estado, setEstado] = useState("");
-  const [buscando, setBuscando] = useState(false);
-  async function buscar(e: SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setBuscando(true);
-    setEstado("Buscando ciudades…");
-    setToken("");
-    try {
-      const r = await api<{ ciudades: OpcionCiudad[] }>(
-        `/api/admin/ciudades?q=${encodeURIComponent(busqueda)}`,
-      );
-      setOpciones(r.ciudades);
-      setEstado(
-        r.ciudades.length
-          ? "Selecciona la ciudad que quieres compartir."
-          : "No se encontraron ciudades. Prueba con el país o la región.",
-      );
-    } catch (e) {
-      setEstado((e as Error).message);
-    } finally {
-      setBuscando(false);
-    }
-  }
+function MapasPersonales() {
   return (
     <section className="admin-panel">
-      <h2>Última ciudad compartida</h2>
-      {contenido.ubicacion?.visible ? (
-        <p>
-          <strong>
-            {contenido.ubicacion.ciudad}, {contenido.ubicacion.pais}
-          </strong>
-          <br />
-          Publicada el {contenido.ubicacion.fecha_publicacion}. Se muestra el
-          centro aproximado de la ciudad.
-        </p>
-      ) : (
-        <p>Por ahora no compartes ninguna ciudad.</p>
-      )}
-      <p className="admin-help">
-        Elige solo la ciudad que deseas hacer pública. La publicación no incluye
-        hoteles, horas de llegada ni tu posición exacta.
+      <h2>Mis mapas de Google</h2>
+      <p>
+        La web muestra los mapas originales de tu cuenta de Google. Edita sus
+        rutas, fotos y ubicación en My Maps; los cambios se verán al recargar la
+        web. Inicia sesión con la cuenta propietaria de cada mapa.
       </p>
-      <form onSubmit={buscar}>
-        <Campo titulo="Buscar ciudad">
-          <input
-            minLength={3}
-            maxLength={100}
-            required
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-            placeholder="Por ejemplo: Medellín, Colombia"
-          />
-        </Campo>
-        <button className="btn btn-outline" disabled={buscando || ocupado}>
-          Buscar ciudad
-        </button>
-      </form>
-      <p role="status" className="form-status">
-        {estado}
-      </p>
-      <ul className="city-results">
-        {opciones.map((o) => (
-          <li key={o.token}>
-            <label>
-              <input
-                type="radio"
-                name="ciudad"
-                checked={token === o.token}
-                onChange={() => {
-                  setToken(o.token);
-                  onDirty();
-                }}
-              />
-              {o.ciudad}, {o.region ? `${o.region}, ` : ""}
-              {o.pais}
-            </label>
-          </li>
-        ))}
-      </ul>
       <div className="button-row">
-        <button
+        <a
           className="btn btn-dark"
-          disabled={!token || ocupado}
-          onClick={() =>
-            void ejecutar(() => api("/api/admin/ubicacion", { token })).then(
-              (ok) => {
-                if (ok) {
-                  setToken("");
-                  setOpciones([]);
-                  setEstado("");
-                }
-              },
-            )
-          }
+          href={mapasPersonales.recorrido.editar}
+          target="_blank"
+          rel="noopener"
         >
-          Publicar ciudad elegida
-        </button>
-        {!!contenido.ubicacion?.visible && (
-          <button
-            className="danger-link"
-            disabled={ocupado}
-            onClick={() =>
-              void ejecutar(() =>
-                api("/api/admin/ubicacion", { ocultar: true }),
-              )
-            }
-          >
-            Dejar de mostrar la ciudad
-          </button>
-        )}
+          Editar MAPA-RUTA ↗
+        </a>
+        <a
+          className="btn btn-outline"
+          href={mapasPersonales.ubicacion.editar}
+          target="_blank"
+          rel="noopener"
+        >
+          Editar mapa de Contactanos ↗
+        </a>
       </div>
+      <p className="admin-help">
+        En My Maps puedes importar GPX/KML, añadir marcadores y fotos, y elegir
+        Satélite en Mapa base. Mantén cada mapa público para que los visitantes
+        puedan verlo. No necesitas activar Google Cloud ni facturación.
+      </p>
+      <p className="admin-help">
+        Las fotos y etapas guardadas en este panel se conservan en la web, pero
+        no se transfieren automáticamente a My Maps. Las fotos 360 mantienen su
+        visor: puedes enlazar su página desde un marcador del mapa.
+      </p>
     </section>
   );
 }
